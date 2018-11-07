@@ -1,0 +1,154 @@
+<!-- Title: bashrc vs bash_profile - What are the differences? -->
+<!-- Date: 07/11/2018 -->
+
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+        <link rel="stylesheet" href="/css/main.css">
+
+        <title>stdmatt's blog</title>
+        <meta name="viewport"
+           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    </head>
+
+
+<body class="post_body">
+    <!-- MENU -->
+    <br>
+    <center>
+        <br>
+        <a href="/index.html"><b>stdmatt's blog</b></a>
+        <br>
+        <br>
+
+        <a href="/about.html">ABOUT</a> |
+        <a href="https://github.com/stdmatt">GITHUB</a> |
+        <a href="/projects.html">PROJECTS</a><br>
+        <a href="mailto:stdmatt@pixelwizards.io">EMAIL</a> |
+        <a href="https://twitter.com/_stdmatt_">LINKEDIN</a> |
+        <a href="https://twitter.com/_stdmatt_">TWITTER</a> |
+        <a href="https://instagram.com/_stdmatt_">INSTAGRAM</a>
+        <br>
+    </center>
+    <br><br>
+    <br><br>
+
+    <!-- --------------------------------------------------------------- -->
+    <!-- Title  -->
+    <!-- --------------------------------------------------------------- -->
+    <div style="text-transform: uppercase;"">
+        <b>bashrc vs bash_profile - What are the differences?</b>
+    </div>
+    <hr>
+
+    So, if you are familiar with any Unix-like system you might get found one
+    of those files at least once in your life - mostly to tweak the <code>PATH</code>
+    variable, or perhaps to add some <code>exports</code> as well.
+    <br>
+    <br>
+
+    If not, fear not! Today we'll check them very closely and see what are their
+    purpose, what makes them different and how to use them correctly!
+    <br>
+    <br>
+
+    So let's start...
+    <br> <br> <br>
+
+    <!-- --------------------------------------------------------------- -->
+    <div style="text-transform: uppercase;">
+        <b>Start up scripts</b>
+    </div> <hr>
+
+    At initialization the <code>bash(1)</code> will execute a myriad of files.
+    Differently from the normal bash scripts, those files don't need to have
+    the executable bit set and don't need to have the <i>shebang</i> as well.
+    <br>
+    <br>
+
+    The order of execution is well defined and is like the follow:
+    <br>
+    <br>
+
+    <b>For interactive login shell:</b><br>
+        &nbsp;&nbsp; 1 - <b>/etc/profile</b>
+        <br>
+        &nbsp;&nbsp; 2 - <b>~/.bash_profile</b>, <b>~/.bash_login</b>, <b>~/.profile</b>
+        <br>
+        The step #1 can fail if the files doesn't exists (but isn't an error). <br>
+        The step #2 <b>will only execute</b> the first file that was found.
+    <br>
+    <br>
+
+    <b>For interactive non-login shell:</b><br>
+        &nbsp;&nbsp; 1 - <b>/etc/bash.bashrc</b>
+        <br>
+        &nbsp;&nbsp; 2 - <b>~/.bashrc </b>
+        <br>
+        Both steps can fail if the file isn't found, but none of them are errors.
+
+    <br> <br> <br>
+
+    <!-- --------------------------------------------------------------- -->
+    <div style="text-transform: uppercase;">
+        <b>Differences</b>
+    </div> <hr>
+
+    So we just saw that <code>bash_profile</code> is executed when we have
+    an <b>interactive <i>LOGIN</i> shell</b> and <code>bashrc</code> is executed
+    when we have an <b>interactive <i>NON-LOGIN</i> shell</b>.
+    <br>
+    <br>
+
+    But what that means in reality?
+    <br>
+    <br>
+
+    <b>Interactive <i>LOGIN</i> shell:</b> As the name states is the <i>"type"</i>
+    of shell that is spawned when we <i>(might)</i> need to enter our credentials
+    at usage. As examples we might say when you first login into your machine, or
+    perhaps when you login via <code>ssh(1)</code> into a it. <br>
+    Here everything that inside <code>bash_profile</code> will be executed, but not
+    the other start up scripts.
+    <br>
+    <br>
+
+    <b>Interactive <i>NON-LOGIN</i> shell:</b> Is the <i>"type"</i> of shell that
+    is created when we don't need use our credentials to use it. The first example
+    that comes to mind is when you open a new <code>xterm(1)</code> instance or
+    runs <code>/usr/bin/bash</code>. <br>
+    As you might expect, on those situations the <code>bashrc</code> file will
+    be executed, but not any of the other files.
+
+    <br> <br> <br>
+
+
+    <!-- --------------------------------------------------------------- -->
+    <div style="text-transform: uppercase;">
+        <b>Oh my dear macOS!</b>
+    </div> <hr>
+
+    If you try to create a <code>bashrc</code> file on macOS and test
+    the initialization order that we learned before we'll see that this isn't
+    working correctly at all. Every time the <b>Terminal.app</b> seems to execute
+    only the <code>bash_profile</code>.
+    <br>
+    <br>
+
+    What is going on is that, for some reason, Apple decided that the <b>Terminal.app</b>
+    will by default spawn <b>interactive login shell</b> every single time. <br>
+    So like we already know, only the <b>bash_profile</b> will be executed.
+
+    <br> <br> <br>
+
+    <!-- --------------------------------------------------------------- -->
+    <div style="text-transform: uppercase;">
+        <b>References</b>
+    </div> <hr>
+            1- <a href="https://en.wikipedia.org/wiki/Bash_(Unix_shell)">wikipedia</a>
+        <br>2- <a href="http://www.joshstaiger.org/archives/2005/07/bash_profile_vs.html">joshstaiger</a>
+        <br>3- <a href="https://linux.die.net/man/1/bash">bash manpage</a>
+        <br>4- <a href="https://scriptingosx.com/2017/04/about-bash_profile-and-bashrc-on-macos/">scriptingosx</a>
+</body>
