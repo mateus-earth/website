@@ -12,6 +12,16 @@ body {
     background: rgb(255, 253, 227);
 }
 
+.post_body {
+    font-family: Monospace, Courier;
+    max-width: 800px;  /* for pc */
+    padding-left: 2ch;
+    padding-right: 3ch;
+    margin: 0 auto;
+    background: rgb(255, 253, 227);
+}
+
+
 @media (max-width: 500px) { /* For small screen decices */
     body {
         font-size: 12px;
@@ -33,7 +43,11 @@ p {
     text-align: justify;
 }
 
-
+code {
+    font-family: Monospace, Courier;
+    background-color:  rgb(226, 225, 215);
+    font-weight: bolder
+}
 /* -------------------------------------------------------------------------- */
 /* Project Page Things                                                        */
 /* -------------------------------------------------------------------------- */
