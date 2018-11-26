@@ -75,8 +75,8 @@ def extract_post_item_info(fullpath, section_name):
 
 
 def sort_section_posts(posts_list):
-    sorter = lambda post_item: time.mktime(datetime.datetime.strptime(post_item[0], "%m/%d/%Y").timetuple());
-    posts_list.sort(key=sorter);
+    sorter = lambda post_item: time.mktime(datetime.datetime.strptime(post_item[0], "%d/%m/%Y").timetuple());
+    posts_list.sort(key=sorter, reverse=True);
 
 
 def clear_section_name(section_dir):
