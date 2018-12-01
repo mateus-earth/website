@@ -136,6 +136,7 @@ def main():
     ## Gather the information for each and every post inside the ./posts directory.
     section_dirs = os.listdir(POSTS_PATH);
     sections     = create_arr(len(section_dirs));
+    posts_to_do  = [];
 
     for section_dir in section_dirs:
         section_dir                 = os.path.join(POSTS_PATH, section_dir);
@@ -146,10 +147,18 @@ def main():
             full_post_path = os.path.join(full_post_dir, "index.html");
 
             post_item = extract_post_item_info(full_post_path, section_name);
-            sections[section_index].append(post_item);
+
+            ##
+            ## @notice(stdmatt): We're setting the __ (double underscores)
+            ## title prefix as a way to indicate that the post isn't completed
+            ## yet, so we won't add it to the sections, but to another list
+            ## that will be printed to remember us to write the post.
+            if(post_item[POST_ITEM_INDEX_TITLE].startswith("__")):
+                    posts_to_do.append(post_item);
+            else:
+                sections[section_index].append(post_item);
 
         sort_section_posts(sections[section_index]);
-
 
     ## Generate the sections and posts html that will be inserted on index.html
     html = generate_html(sections);
@@ -164,6 +173,15 @@ def main():
     f = open(os.path.join(PROJECT_ROOT, "index.html"), "w");
     f.write(index_page);
     f.close();
+
+    ##
+    ## Let's write all the posts that we need to complete!
+    print("---- POSTS TO DO -----");
+    for post_item in posts_to_do:
+        print("Title: {0} - Section: {1}".format(
+            post_item[POST_ITEM_INDEX_TITLE],
+            post_item[POST_ITEM_INDEX_SECTION]
+        ));
 
 
 if __name__ == '__main__':
