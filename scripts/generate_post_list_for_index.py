@@ -46,16 +46,19 @@ POST_ITEM_INDEX_URL     = 3;
 ## Helper Functions                                                           ##
 ##----------------------------------------------------------------------------##
 def clean_the_meta_line(line, meta_tag):
+    ##
     ## Remove the html comments.
     line = line.strip().replace("<!--", "").replace("-->", "").strip();
 
+    ##
     ## Remove the meta tag form the line.
     h,s, content = line.partition(meta_tag);
     return content.strip();
 
 def extract_post_item_info(fullpath, section_name):
-
     f = open(fullpath);
+
+    ##
     ## @notice(stmatt): Here we are hardcoding that the first line is the title
     ##   and the second line is the date, there's no specific reason to do that
     ##   but to gain time. I mean, is very simple system today and this
@@ -71,6 +74,7 @@ def extract_post_item_info(fullpath, section_name):
 
     f.close();
 
+    ##
     ## We need to do that becuase the relative path will become the URL
     ## for the <a href="..."> at the index.html.
     base_path      = os.path.commonprefix((fullpath, PROJECT_ROOT));
@@ -133,6 +137,7 @@ def insert_resulting_html(html_to_insert, template_filename):
 ## Entry Point                                                                ##
 ##----------------------------------------------------------------------------##
 def main():
+    ##
     ## Gather the information for each and every post inside the ./posts directory.
     section_dirs = os.listdir(POSTS_PATH);
     sections     = create_arr(len(section_dirs));
@@ -160,10 +165,11 @@ def main():
 
         sort_section_posts(sections[section_index]);
 
+    ##
     ## Generate the sections and posts html that will be inserted on index.html
     html = generate_html(sections);
 
-
+    ##
     ## Generate the final index.html
     index_page = insert_resulting_html(
         html,
