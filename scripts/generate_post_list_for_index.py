@@ -36,6 +36,11 @@ SCRIPT_PATH  = os.path.dirname(os.path.realpath(__file__));
 PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_PATH, ".."));
 POSTS_PATH   = os.path.join(PROJECT_ROOT, "posts");
 
+POST_ITEM_INDEX_DATE    = 0;
+POST_ITEM_INDEX_SECTION = 1;
+POST_ITEM_INDEX_TITLE   = 2;
+POST_ITEM_INDEX_URL     = 3;
+
 
 ##----------------------------------------------------------------------------##
 ## Helper Functions                                                           ##
@@ -98,16 +103,16 @@ def generate_html(sections_list):
         if(len(section) == 0):
             continue;
 
-        section_name = section[0][1]; ## section_name index as
-                                      ## defined @ extract_post_item_info.
+        section_name = section[0][POST_ITEM_INDEX_SECTION];
+
         html += """<div style="text-transform: uppercase;" "="">""";
         html += """<b>%s</b>""" % section_name;
         html += """</div><hr>""";
 
         for post in section:
-            date  = post[0];
-            title = post[2];
-            url   = post[3];
+            date  = post[POST_ITEM_INDEX_DATE ];
+            title = post[POST_ITEM_INDEX_TITLE];
+            url   = post[POST_ITEM_INDEX_URL  ];
             html += """%s: <a href="%s">%s</a><br>""" % (date, url, title);
 
         html += "<br>";
