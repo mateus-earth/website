@@ -48,6 +48,18 @@ code {
     background-color:  rgb(226, 224, 205);
     font-weight: bolder
 }
+
+
+.shadowed {
+    padding: 5px;
+    background-color: white;
+    box-shadow: rgb(119, 119, 119) 3px 3px 3px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #aaaaaa;
+}
+
+
 /* -------------------------------------------------------------------------- */
 /* Project Page Things                                                        */
 /* -------------------------------------------------------------------------- */
