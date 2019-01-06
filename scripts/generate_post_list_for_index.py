@@ -45,6 +45,7 @@ POST_ITEM_INDEX_URL     = 3;
 ##----------------------------------------------------------------------------##
 ## Helper Functions                                                           ##
 ##----------------------------------------------------------------------------##
+##------------------------------------------------------------------------------
 def clean_the_meta_line(line, meta_tag):
     ##
     ## Remove the html comments.
@@ -55,6 +56,7 @@ def clean_the_meta_line(line, meta_tag):
     h,s, content = line.partition(meta_tag);
     return content.strip();
 
+##------------------------------------------------------------------------------
 def extract_post_item_info(fullpath, section_name):
     f = open(fullpath);
 
@@ -82,25 +84,28 @@ def extract_post_item_info(fullpath, section_name):
 
     return date, section_name, title, relative_path;
 
-
+##------------------------------------------------------------------------------
 def sort_section_posts(posts_list):
-    sorter = lambda post_item: time.mktime(datetime.datetime.strptime(post_item[0], "%d/%m/%Y").timetuple());
+    sorter = lambda post_item: time.mktime(
+        datetime.datetime.strptime(post_item[0], "%d/%m/%Y").timetuple()
+    );
     posts_list.sort(key=sorter, reverse=True);
 
-
+##------------------------------------------------------------------------------
 def clear_section_name(section_dir):
     section_dir = os.path.basename(section_dir);
     index = section_dir[0];
     name  = section_dir[2:];
     return name, int(index);
 
+##------------------------------------------------------------------------------
 def create_arr(size):
     arr = [];
     for i in xrange(size):
         arr.append([]);
     return arr;
 
-
+##------------------------------------------------------------------------------
 def generate_html(sections_list):
     html = "";
     for section in sections_list:
@@ -131,6 +136,7 @@ def generate_html(sections_list):
         html += "<br>";
     return html;
 
+##------------------------------------------------------------------------------
 def insert_resulting_html(html_to_insert, template_filename):
     lines = [];
     f = open(template_filename, "r");
@@ -141,10 +147,10 @@ def insert_resulting_html(html_to_insert, template_filename):
     return ("").join(lines);
 
 
-
 ##----------------------------------------------------------------------------##
 ## Entry Point                                                                ##
 ##----------------------------------------------------------------------------##
+##------------------------------------------------------------------------------
 def main():
     ##
     ## Gather the information for each and every post inside the ./posts directory.
