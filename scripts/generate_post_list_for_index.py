@@ -113,10 +113,19 @@ def generate_html(sections_list):
         html += """<b>%s</b>""" % section_name;
         html += """</div><hr>""";
 
+        last_year = None;
         for post in section:
             date  = post[POST_ITEM_INDEX_DATE ];
             title = post[POST_ITEM_INDEX_TITLE];
             url   = post[POST_ITEM_INDEX_URL  ];
+
+            year = date.split("/")[2];
+            if(last_year != year):
+                if(last_year is not None):
+                    html += "<br>";
+                last_year = year;
+
+
             html += """%s: <a href="%s">%s</a><br>""" % (date, url, title);
 
         html += "<br>";
