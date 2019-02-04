@@ -166,6 +166,10 @@ def main():
             full_post_dir  = os.path.join(section_dir, post_dir);
             full_post_path = os.path.join(full_post_dir, "index.html");
 
+            if(not os.path.isdir(full_post_dir)):
+                continue;
+
+            print("Processing:", full_post_dir);
             post_item = extract_post_item_info(full_post_path, section_name);
 
             ##
