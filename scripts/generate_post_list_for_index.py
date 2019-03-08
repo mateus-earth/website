@@ -91,6 +91,23 @@ def sort_section_posts(posts_list):
     );
     posts_list.sort(key=sorter, reverse=True);
 
+    for i in xrange(0, len(posts_list)-1):
+        post_a = posts_list[i];
+        post_b = posts_list[i+1];
+
+        if(sorter(post_a) == sorter(post_b)):
+            print post_a[2], sorter(post_a);
+            print post_b[2], sorter(post_b);
+
+            if(os.path.getctime(post_a[3]) <= os.path.getctime(post_b[3])):
+                print "Es menor";
+                posts_list.pop(i);
+                posts_list.insert(i+1, post_a);
+                # print post_a[2], sorter(post_a);
+                # print post_b[2], sorter(post_b);
+
+            print "---";
+
 ##------------------------------------------------------------------------------
 def clear_section_name(section_dir):
     section_dir = os.path.basename(section_dir);
@@ -169,7 +186,7 @@ def main():
             if(not os.path.isdir(full_post_dir)):
                 continue;
 
-            print("Processing:", full_post_dir);
+            # print("Processing:", full_post_dir);
             post_item = extract_post_item_info(full_post_path, section_name);
 
             ##
