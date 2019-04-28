@@ -36,6 +36,9 @@ a {
 img {
     border:1px solid #021a40;
 }
+.img_no_border {
+    border:0px solid #021a40;
+}
 
 p {
     margin-top: 0px;
