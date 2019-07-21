@@ -9,19 +9,20 @@
 
         <meta name="viewport"
            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+
     </head>
 
 
     <body>
         <!-- --------------------------------------------------------------- -->
-        <!-- MENU -->
+        <!-- MENU                                                            -->
+        <!-- --------------------------------------------------------------- -->
         <br>
         <center>
             <br>
             <a href="./index.html"><b>stdmatt's blog</b></a>
-            <br>
-            <br>
-
+            <br><br>
 
             <a href="./about.html">ABOUT</a> |
             <a href="https://gitlab.com/stdmatt">GITLAB</a> |
@@ -33,10 +34,26 @@
             <br>
         </center>
         <br><br>
-        <br><br>
 
-        <!-- This is filled by ./scripts/generate_post_list_for_index.py -->
-        __SECTIONS_AND_POSTS_LISTS_TO_BE_REPLACED__
+        <!-- --------------------------------------------------------------- -->
+        <!-- Interactive Canvas                                              -->
+        <!-- --------------------------------------------------------------- -->
+        <div>
+            <center>
+                <canvas id="main_canvas" width="400px" height="400px" >
+                </canvas>
 
+                <br><span id="main_title">Title:</span>
+                <br><span id="main_date">Date:</span>
+                <br><span id="main_version">Version:</span>
+                <br><span id="main_link"></span> | <span>All projects</span>
+                <br><br><span id="main_instructions">Instructions:</span>
+
+            </center>
+
+            <script type="text/javascript" src="interactive/src/base/Base.js"></script>
+            <script type="text/javascript" src="interactive/src/base/Main_Canvas.js"></script>
+        </div>
     </body>
+
 </html>
