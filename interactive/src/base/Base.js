@@ -88,6 +88,7 @@ function _Canvas_SetupInfo(info)
 function Canvas_ClearWindow(color)
 {
     Context.fillStyle = color == undefined ? 'black' : color;
+    // Context.clearRect(0, 0, Canvas.width, Canvas.height);
     Context.fillRect(
         -Canvas.width,
         -Canvas.height,
@@ -110,8 +111,14 @@ function Canvas_Setup(info)
 
 
     window.addEventListener("keydown", event => {
-        if(KeyDown) {
+        if(typeof KeyDown === 'function') {
             KeyDown(event.keyCode);
+        }
+    });
+
+    window.addEventListener("keyup", event => {
+        if(typeof KeyUp === 'function') {
+            KeyUp(event.keyCode);
         }
     });
 
@@ -219,6 +226,14 @@ function Canvas_DrawShape(vertices, closed)
         let v2 = vertices[vertices.length - 1];
         Canvas_DrawLine(v1.x, v1.y, v2.x, v2.y);
     }
+}
+
+//------------------------------------------------------------------------------
+function Canvas_DrawRect(x, y, w, h)
+{
+    Context.beginPath();
+    Context.rect(x, y, w, h);
+    Context.stroke();
 }
 
 
@@ -357,6 +372,80 @@ function Math_Radians(d)
 
 //----------------------------------------------------------------------------//
 //                                                                            //
+// Vector                                                                     //
+//                                                                            //
+//----------------------------------------------------------------------------//
+function Vector_Add(a, b)
+{
+    return Vector_Create(a.x + b.x, a.y + b.y);
+}
+
+function Vector_Create(x, y)
+{
+    let v = {x:0, y:0}
+    if(x != undefined) {
+        v.x = x;
+    }
+    if(y != undefined) {
+        v.y = y;
+    }
+    return v;
+}
+
+//----------------------------------------------------------------------------//
+//                                                                            //
+// Array                                                                      //
+//                                                                            //
+//----------------------------------------------------------------------------//
+function Array_Get(arr, i)
+{
+    if(i < 0 || i >= arr.length) {
+        debugger;
+    }
+
+    return arr[i];
+}
+
+function Array_GetFront(arr)
+{
+    return Array_Get(arr, 0);
+}
+
+function Array_GetBack(arr)
+{
+    return Array_Get(arr, arr.length -1);
+}
+
+
+function Array_PushFront(arr, e)
+{
+    arr.unshift(e);
+}
+
+function Array_PushBack(arr, e)
+{
+    arr.push(e);
+}
+
+
+function Array_PopBack(arr)
+{
+    let e = Array_GetBack(arr);
+    arr = arr.splice(arr.length -1, 1);
+    return e;
+}
+
+function Array_PopFront(arr)
+{
+    let e = Array_GetFront(arr);
+    arr = arr.splice(0, 1);
+    return e;
+}
+
+
+
+//----------------------------------------------------------------------------//
+//                                                                            //
 // Log                                                                        //
 //                                                                            //
 //----------------------------------------------------------------------------//
@@ -378,6 +467,8 @@ function Utils_Swap(a, b)
     a = b;
     b = c;
 }
+
+
 
 
 /**
