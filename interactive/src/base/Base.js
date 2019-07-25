@@ -103,6 +103,8 @@ function Canvas_Setup(info)
     _Canvas_GetFromHtml();
     _Canvas_SetupInfo(info);
 
+    Time_Total = 0;
+
     Canvas.addEventListener("mousemove", function(e){
         var r = Canvas.getBoundingClientRect();
         _Mouse_Update(e.clientX - r.left, e.clientY - r.top);
@@ -135,6 +137,9 @@ function Canvas_Draw(t)
     let dt = (_Time_Now - _Time_Prev) / 1000;
     _Time_Prev = _Time_Now;
 
+    Time_Total += dt;
+    Time_Delta = dt;
+
     Draw(dt); // Should be defined by user.
     window.requestAnimationFrame(Canvas_Draw);
 }
@@ -153,6 +158,10 @@ function Canvas_Pop()
 
 
 //------------------------------------------------------------------------------
+function Canvas_SetOrigin(x, y)
+{
+    Canvas_Translate(x, y);
+}
 function Canvas_Translate(x, y)
 {
     Context.translate(x, y);
@@ -162,6 +171,18 @@ function Canvas_Rotate(a)
 {
     Context.rotate(a);
 }
+
+function Canvas_Scale(x, y)
+{
+    Context.scale(x, y);
+}
+
+//------------------------------------------------------------------------------
+function Canvas_SetFillStyle(style)
+{
+    Context.fillStyle = style;
+}
+
 
 //------------------------------------------------------------------------------
 function Canvas_SetStrokeStyle(style)
@@ -194,11 +215,20 @@ function Canvas_DrawLine(x1, y1, x2, y2)
 }
 
 //------------------------------------------------------------------------------
-function Canvas_DrawArc(x, y, r, sa, ea)
+function Canvas_DrawArc(x, y, r, sa, ea, close)
 {
     Context.beginPath();
         Context.arc(x, y, r, sa, ea);
+        if(close != undefined && close) {
+            Context.closePath();
+        }
+    Context.closePath();
     Context.stroke();
+}
+
+function Canvas_DrawTriangle(x1, y1, x2, y2, x3, y3)
+{
+    Canvas_DrawShape([x1, y1, x2, y2, x3, y3], true);
 }
 
 //------------------------------------------------------------------------------
@@ -207,35 +237,39 @@ function Canvas_DrawCircle(x, y, r)
     Canvas_DrawArc(x, y, r, 0, MATH_2PI);
 }
 
+
 //------------------------------------------------------------------------------
 function Canvas_DrawShape(vertices, closed)
 {
-    for(let i = 0; i < vertices.length-1; ++i) {
-        let v1 = vertices[i + 0];
-        let v2 = vertices[i + 1];
+    Context.beginPath();
+        Context.moveTo(vertices[0], vertices[1]);
+        for(let i = 2; i < vertices.length-1; i += 2) {
+            Context.lineTo(vertices[i], vertices[i+1]);
+        }
 
-        // Canvas_SetStrokeStyle("red");
-        // Canvas_DrawPoint(v1.x, v1.y, 5);
-        // Canvas_DrawPoint(v2.x, v2.y, 5);
-        // Canvas_SetStrokeStyle("white");
-        Canvas_DrawLine(v1.x, v1.y, v2.x, v2.y);
-    }
-
-    if(closed != undefined && closed) {
-        let v1 = vertices[0];
-        let v2 = vertices[vertices.length - 1];
-        Canvas_DrawLine(v1.x, v1.y, v2.x, v2.y);
-    }
+        if(closed != undefined && closed) {
+            Context.lineTo(vertices[0], vertices[1]);
+        }
+    Context.closePath();
+    Context.stroke();
 }
 
 //------------------------------------------------------------------------------
 function Canvas_DrawRect(x, y, w, h)
 {
     Context.beginPath();
-    Context.rect(x, y, w, h);
+        Context.rect(x, y, w, h);
+    Context.closePath();
     Context.stroke();
 }
 
+function Canvas_FillRect(x, y, w, h)
+{
+    Context.beginPath();
+        Context.rect(x, y, w, h);
+    Context.closePath();
+    Context.fill();
+}
 
 //------------------------------------------------------------------------------
 var _Canvas_ImageData = null;
@@ -322,6 +356,11 @@ const MATH_2PI = MATH_PI * 2;
 const Math_Cos = Math.cos;
 const Math_Sin = Math.sin;
 
+function Math_Int(n)
+{
+    return Math.floor(n);
+}
+
 //------------------------------------------------------------------------------
 function Math_Random(m, M)
 {
@@ -380,6 +419,11 @@ function Vector_Add(a, b)
     return Vector_Create(a.x + b.x, a.y + b.y);
 }
 
+function Vector_Sub(a, b)
+{
+    return Vector_Create(a.x - b.x, a.y - b.y);
+}
+
 function Vector_Create(x, y)
 {
     let v = {x:0, y:0}
@@ -405,6 +449,12 @@ function Array_Get(arr, i)
 
     return arr[i];
 }
+
+function Array_RemoveAt(arr, i)
+{
+    arr = arr.splice(i, 1);
+}
+
 
 function Array_GetFront(arr)
 {
@@ -442,6 +492,14 @@ function Array_PopFront(arr)
     return e;
 }
 
+//----------------------------------------------------------------------------//
+//                                                                            //
+// Time                                                                       //
+//                                                                            //
+//----------------------------------------------------------------------------//
+//------------------------------------------------------------------------------
+let Time_Total = 0;
+let Time_Delta = 0;
 
 
 //----------------------------------------------------------------------------//
@@ -482,6 +540,15 @@ function Utils_Swap(a, b)
  * @param   Number  l       The lightness
  * @return  Array           The RGB representation
  */
+
+function Color_MakeRGBString(rgb)
+{
+    let s = "rgb(" + rgb[0] + ","
+                   + rgb[1] + ","
+                   + rgb[2] + ")";
+    return s;
+}
+
 function hslToRgb(h, s, l) {
   var r, g, b;
 
