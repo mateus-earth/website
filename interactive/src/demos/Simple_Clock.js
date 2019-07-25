@@ -7,7 +7,7 @@
 //                                                                            //
 //  File      : Simple_Clock.js                                               //
 //  Project   : demos                                                         //
-//  Date      : 1y Jul, 2019                                                  //
+//  Date      : 17 Jul, 2019                                                  //
 //  License   : GPLv3                                                         //
 //  Author    : stdmatt <stdmatt@pixelwizards.io>                             //
 //  Copyright : stdmatt - 2019                                                //
