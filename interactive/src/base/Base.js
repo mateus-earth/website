@@ -156,22 +156,25 @@ function Canvas_Pop()
     Context.restore();
 }
 
-
 //------------------------------------------------------------------------------
 function Canvas_SetOrigin(x, y)
 {
     Canvas_Translate(x, y);
 }
+
+//------------------------------------------------------------------------------
 function Canvas_Translate(x, y)
 {
     Context.translate(x, y);
 }
 
+//------------------------------------------------------------------------------
 function Canvas_Rotate(a)
 {
     Context.rotate(a);
 }
 
+//------------------------------------------------------------------------------
 function Canvas_Scale(x, y)
 {
     Context.scale(x, y);
@@ -182,7 +185,6 @@ function Canvas_SetFillStyle(style)
 {
     Context.fillStyle = style;
 }
-
 
 //------------------------------------------------------------------------------
 function Canvas_SetStrokeStyle(style)
@@ -205,6 +207,7 @@ function Canvas_DrawPoint(x, y, size)
     Context.fill();
 }
 
+//------------------------------------------------------------------------------
 function Canvas_DrawLine(x1, y1, x2, y2)
 {
     Context.beginPath();
@@ -226,6 +229,7 @@ function Canvas_DrawArc(x, y, r, sa, ea, close)
     Context.stroke();
 }
 
+//------------------------------------------------------------------------------
 function Canvas_DrawTriangle(x1, y1, x2, y2, x3, y3)
 {
     Canvas_DrawShape([x1, y1, x2, y2, x3, y3], true);
@@ -236,7 +240,6 @@ function Canvas_DrawCircle(x, y, r)
 {
     Canvas_DrawArc(x, y, r, 0, MATH_2PI);
 }
-
 
 //------------------------------------------------------------------------------
 function Canvas_DrawShape(vertices, closed)
@@ -263,6 +266,7 @@ function Canvas_DrawRect(x, y, w, h)
     Context.stroke();
 }
 
+//------------------------------------------------------------------------------
 function Canvas_FillRect(x, y, w, h)
 {
     Context.beginPath();
@@ -293,7 +297,7 @@ function Canvas_UnlockPixels()
     _Canvas_ImageData = null;
 }
 
-
+//------------------------------------------------------------------------------
 function Canvas_SetColor(x, y, color)
 {
     // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas
@@ -335,6 +339,8 @@ const KEY_RIGHT = 39;
 
 var Mouse_X = 0;
 var Mouse_Y = 0;
+
+//------------------------------------------------------------------------------
 function _Mouse_Update(x, y)
 {
     Mouse_X = x;
@@ -356,6 +362,7 @@ const MATH_2PI = MATH_PI * 2;
 const Math_Cos = Math.cos;
 const Math_Sin = Math.sin;
 
+//------------------------------------------------------------------------------
 function Math_Int(n)
 {
     return Math.floor(n);
@@ -403,6 +410,7 @@ function Math_CreateVector(x, y)
     return {x:x, y:y};
 }
 
+//------------------------------------------------------------------------------
 function Math_Radians(d)
 {
     return d * (MATH_PI / 180);
@@ -419,11 +427,13 @@ function Vector_Add(a, b)
     return Vector_Create(a.x + b.x, a.y + b.y);
 }
 
+//------------------------------------------------------------------------------
 function Vector_Sub(a, b)
 {
     return Vector_Create(a.x - b.x, a.y - b.y);
 }
 
+//------------------------------------------------------------------------------
 function Vector_Create(x, y)
 {
     let v = {x:0, y:0}
@@ -441,6 +451,7 @@ function Vector_Create(x, y)
 // Array                                                                      //
 //                                                                            //
 //----------------------------------------------------------------------------//
+//------------------------------------------------------------------------------
 function Array_Get(arr, i)
 {
     if(i < 0 || i >= arr.length) {
@@ -450,34 +461,37 @@ function Array_Get(arr, i)
     return arr[i];
 }
 
+//------------------------------------------------------------------------------
 function Array_RemoveAt(arr, i)
 {
     arr = arr.splice(i, 1);
 }
 
-
+//------------------------------------------------------------------------------
 function Array_GetFront(arr)
 {
     return Array_Get(arr, 0);
 }
 
+//------------------------------------------------------------------------------
 function Array_GetBack(arr)
 {
     return Array_Get(arr, arr.length -1);
 }
 
-
+//------------------------------------------------------------------------------
 function Array_PushFront(arr, e)
 {
     arr.unshift(e);
 }
 
+//------------------------------------------------------------------------------
 function Array_PushBack(arr, e)
 {
     arr.push(e);
 }
 
-
+//------------------------------------------------------------------------------
 function Array_PopBack(arr)
 {
     let e = Array_GetBack(arr);
@@ -485,12 +499,15 @@ function Array_PopBack(arr)
     return e;
 }
 
+//------------------------------------------------------------------------------
 function Array_PopFront(arr)
 {
     let e = Array_GetFront(arr);
     arr = arr.splice(0, 1);
     return e;
 }
+
+
 
 //----------------------------------------------------------------------------//
 //                                                                            //
@@ -518,7 +535,19 @@ function Log()
     console.log(s);
 }
 
+//------------------------------------------------------------------------------
+function Debug_Log()
+{
+    s = "";
+    for (var i = 0; i < arguments.length -1; i++) {
+        s += arguments[i] + " ";
+    }
+    s += arguments[arguments.length -1];
+    console.log("[DEBUG] "  + s);
+}
 
+
+//------------------------------------------------------------------------------
 function Utils_Swap(a, b)
 {
     let c = a;
