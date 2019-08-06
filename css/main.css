@@ -12,15 +12,6 @@ body {
     background: rgb(255, 253, 227);
 }
 
-.post_body {
-    font-family: Monospace, Courier;
-    max-width: 800px;  /* for pc */
-    padding-left: 2ch;
-    padding-right: 3ch;
-    margin: 0 auto;
-    background: rgb(255, 253, 227);
-}
-
 
 @media (max-width: 500px) { /* For small screen decices */
     body {
@@ -63,19 +54,11 @@ code {
 }
 
 
+
 /* -------------------------------------------------------------------------- */
 /* Project Page Things                                                        */
 /* -------------------------------------------------------------------------- */
-.project_item_container {
-    /* background-color: red; */
-    padding-bottom: 10px;
+div.project_item {
+    /* background-color: lightblue; */
+    padding-bottom: 20px;
 }
-
-.project_item_box {
-    display: flex;
-    align-items:center;
-    margin-left: 00px;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 5px;
- }
