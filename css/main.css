@@ -1,31 +1,38 @@
+/*----------------------------------------------------------------------------*/
+/*                       __      __                  __   __                  */
+/*               .-----.|  |_.--|  |.--------.---.-.|  |_|  |_                */
+/*               |__ --||   _|  _  ||        |  _  ||   _|   _|               */
+/*               |_____||____|_____||__|__|__|___._||____|____|               */
+/*                                                                            */
+/*  File      : main.css                                                      */
+/*  Project   : stdmatt_blog                                                  */
+/*  Date      : Nov 06, 2018                                                  */
+/*  License   : GPLv3                                                         */
+/*  Author    : stdmatt <stdmatt@pixelwizards.io>                             */
+/*  Copyright : stdmatt - 2018, 2019                                          */
+/*                                                                            */
+/*  Description :                                                             */
+/*                                                                            */
+/*----------------------------------------------------------------------------*/
+
 /* -------------------------------------------------------------------------- */
 /* @todo(stdmatt): Thanks to fabien about the css..                           */
 /*                                                                            */
 /* -------------------------------------------------------------------------- */
-
 body {
     font-family: Monospace, Courier;
-    max-width: 1024px;  /* for pc */
+    font-size: 16;
+    max-width: 900px;
+
+    /* For Desktop PC (see @media for Tablets/Phones) */
     padding-left: 2ch;
     padding-right: 3ch;
     margin: 0 auto;
-    background: rgb(255, 253, 227);
+    background: #fffde3
 }
 
-.post_body {
-    font-family: Monospace, Courier;
-    max-width: 800px;  /* for pc */
-    padding-left: 2ch;
-    padding-right: 3ch;
-    margin: 0 auto;
-    background: rgb(255, 253, 227);
-}
-
-
-@media (max-width: 500px) { /* For small screen decices */
-    body {
-        font-size: 12px;
-    }
+hr {
+    border-top: 1px solid #726F3A;
 }
 
 a {
@@ -34,48 +41,125 @@ a {
 }
 
 img {
-    border:1px solid #021a40;
-}
-.img_no_border {
-    border:0px solid #021a40;
+    border: none;
 }
 
 p {
     margin-top: 0px;
-    margin-bottom: 25pt;
+    margin-bottom: 3ch;
     text-align: justify;
 }
 
-code {
-    font-family: Monospace, Courier;
-    background-color:  rgb(226, 224, 205);
-    font-weight: bolder
+
+@media (max-width: 500px) {
+    /* For small screen decices */
+    body {
+        font-size: 12px;
+    }
+
+    pre {
+        font-size: 12px;
+    }
 }
 
 
-.shadowed {
-    padding: 5px;
-    background-color: white;
-    box-shadow: rgb(119, 119, 119) 3px 3px 3px;
-    border-style: solid;
-    border-width: 1px;
-    border-color: #aaaaaa;
+
+/*----------------------------------------------------------------------------*/
+/* Main Menu                                                                  */
+/*----------------------------------------------------------------------------*/
+.main_menu {
+    display: inline-block;
+    vertical-align:middle;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.main_menu div {
+    text-align: justify;
+    display: inline-block;
+    width: 100%;
+}
+.main_menu a {
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+/*----------------------------------------------------------------------------*/
+/* About                                                                      */
+/*----------------------------------------------------------------------------*/
+.about
+{
+    overflow: auto;
+}
+
+.about span {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.about img {
+    border: solid 1px black;
+    float:right;
+    margin-left: 2ch;
+    margin-bottom: 1ch;
+    height: 200px;
+}
+.about p {
+    margin-bottom: 1ch;
+    background: cyan;
+}
+.about ul {
+    margin-top: -1ch;
+    background: red;
+}
+.about a {
+    text-transform: uppercase;
 }
 
 
-/* -------------------------------------------------------------------------- */
-/* Project Page Things                                                        */
-/* -------------------------------------------------------------------------- */
-.project_item_container {
-    /* background-color: red; */
-    padding-bottom: 10px;
+/*----------------------------------------------------------------------------*/
+/* Project Game Item Left                                                     */
+/*----------------------------------------------------------------------------*/
+.project_game_item_left {
+    overflow: auto;
+    /* background-color: aqua */
 }
 
-.project_item_box {
-    display: flex;
-    align-items:center;
-    margin-left: 00px;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 5px;
- }
+.project_game_item_left span {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.project_game_item_left img {
+    border: solid 1px black;
+    float:left;
+    margin-right: 2ch;
+    margin-bottom: 1ch;
+    height: 200px;
+}
+.project_game_item_left ul {
+    float: left;
+    /* background: red; */
+}
+
+/*----------------------------------------------------------------------------*/
+/* Project Game Item Right                                                    */
+/*----------------------------------------------------------------------------*/
+.project_game_item_right {
+    overflow: auto;
+    /* background-color: aqua */
+}
+
+.project_game_item_right span {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.project_game_item_right img {
+    border: solid 1px black;
+    float:right;
+    margin-left: 2ch;
+    margin-bottom: 1ch;
+    height: 200px;
+}
+.project_game_item_right ul {
+    float: left;
+    /* background: red; */
+}
