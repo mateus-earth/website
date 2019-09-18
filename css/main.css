@@ -28,11 +28,12 @@ body {
     padding-left: 2ch;
     padding-right: 3ch;
     margin: 0 auto;
-    background: #fffde3
+    background: #fffde3;
+    color: #24292B;
 }
 
 hr {
-    border-top: 1px solid #726F3A;
+    border-top: 1px solid #D7B378;
 }
 
 a {
@@ -42,12 +43,6 @@ a {
 
 img {
     border: none;
-}
-
-p {
-    margin-top: 0px;
-    margin-bottom: 3ch;
-    text-align: justify;
 }
 
 
@@ -106,6 +101,7 @@ p {
 .about p {
     margin-top: 2ch;
     margin-bottom: 1ch;
+    text-align: justify;
     /* background: cyan; */
 }
 .about ul {
@@ -117,50 +113,57 @@ p {
 }
 
 
-/*----------------------------------------------------------------------------*/
-/* Project Game Item Left                                                     */
-/*----------------------------------------------------------------------------*/
-.project_game_item_left {
-    overflow: auto;
-    /* background-color: aqua */
-}
-
-.project_game_item_left span {
+.project_item section {
     text-transform: uppercase;
     font-weight: bold;
+    font-size: 2.5ch;
+    /* margin-bottom: -2ch; */
+    /* background-color: red; */
 }
-.project_game_item_left img {
-    border: solid 1px black;
-    float:left;
-    margin-right: 2ch;
-    margin-bottom: 1ch;
-    height: 200px;
+
+.project_item
+{
+    /* background-color: green */
 }
-.project_game_item_left ul {
+.project_item span {
+    text-transform: uppercase;
+    font-weight: bold;
+    /* background-color: red; */
+}
+.project_item p {
+    margin-top: 1ch;
+    text-align: justify;
+    /* background-color: red; */
+}
+.project_item ul {
     float: left;
-    /* background: red; */
+    margin-top: 0ch;
+    padding-left: 0ch;
+    /* background-color: aqua; */
 }
-
-/*----------------------------------------------------------------------------*/
-/* Project Game Item Right                                                    */
-/*----------------------------------------------------------------------------*/
-.project_game_item_right {
-    overflow: auto;
-    /* background-color: aqua */
+.project_item li {
+    margin-left: 2ch;
+    /* background-color: red; */
 }
-
-.project_game_item_right span {
-    text-transform: uppercase;
-    font-weight: bold;
-}
-.project_game_item_right img {
+.project_item img {
     border: solid 1px black;
+    margin-bottom: 0ch;
+    max-height: 200px;
+    max-width: 300px;
+}
+
+.project_item div {
+    overflow: auto;
+}
+.project_item div:last-child {
+    margin-bottom: 3ch;
+}
+.project_item div:nth-child(even) img {
+    float: left;
+    margin-right: 2ch;
+}
+
+.project_item div:nth-child(odd) img {
     float:right;
     margin-left: 2ch;
-    margin-bottom: 1ch;
-    height: 200px;
-}
-.project_game_item_right ul {
-    float: left;
-    /* background: red; */
 }
