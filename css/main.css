@@ -104,12 +104,13 @@ p {
     height: 200px;
 }
 .about p {
+    margin-top: 2ch;
     margin-bottom: 1ch;
-    background: cyan;
+    /* background: cyan; */
 }
 .about ul {
     margin-top: -1ch;
-    background: red;
+    /* background: red; */
 }
 .about a {
     text-transform: uppercase;
