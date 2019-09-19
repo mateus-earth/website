@@ -39,12 +39,23 @@ hr {
 a {
     color: black;
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 img {
     border: none;
 }
 
+title {
+    text-transform: uppercase;
+    font-weight: bold;
+    display: inline;
+}
+
+section {
+    text-transform: uppercase;
+    font-weight: bold;
+}
 
 @media (max-width: 500px) {
     /* For small screen decices */
@@ -87,10 +98,6 @@ img {
     overflow: auto;
 }
 
-.about span {
-    text-transform: uppercase;
-    font-weight: bold;
-}
 .about img {
     border: solid 1px black;
     float:right;
@@ -108,23 +115,52 @@ img {
     margin-top: -1ch;
     /* background: red; */
 }
-.about a {
-    text-transform: uppercase;
+
+/*----------------------------------------------------------------------------*/
+/* Contact                                                                    */
+/*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*/
+/* About                                                                      */
+/*----------------------------------------------------------------------------*/
+.contact
+{
+    overflow: auto;
 }
 
-
-.project_item section {
+.contact img {
+    border: solid 1px black;
+    float:right;
+    margin-left: 2ch;
+    margin-bottom: 1ch;
+    height: 200px;
+}
+.contact p {
+    margin-top: 2ch;
+    margin-bottom: 1ch;
+    text-align: justify;
+    /* background: cyan; */
+}
+.contact_links ul {
+    margin-top: -1ch;
     text-transform: uppercase;
     font-weight: bold;
-    font-size: 2.5ch;
-    /* margin-bottom: -2ch; */
-    /* background-color: red; */
+    /* background: red; */
+}
+.contact_links a {
+    color: black;
+    font-weight: bold;
+    text-transform: none;
 }
 
+/*----------------------------------------------------------------------------*/
+/* Project / Games                                                            */
+/*----------------------------------------------------------------------------*/
 .project_item
 {
     /* background-color: green */
 }
+
 .project_item span {
     text-transform: uppercase;
     font-weight: bold;
