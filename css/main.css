@@ -160,50 +160,56 @@ section {
 /*----------------------------------------------------------------------------*/
 /* Project / Games                                                            */
 /*----------------------------------------------------------------------------*/
-.project_item
+.project_section
 {
-    /* background-color: green */
+    background-color: green
+
+}
+.project_section div:last-child {
+    margin-bottom: 3ch;
 }
 
-.project_item span {
+.project_section div {
+    overflow: auto;
+}
+
+.project_section section {
     text-transform: uppercase;
     font-weight: bold;
     /* background-color: red; */
 }
-.project_item p {
-    margin-top: 1ch;
-    text-align: justify;
-    /* background-color: red; */
-}
-.project_item ul {
-    float: left;
-    margin-top: 0ch;
-    padding-left: 0ch;
-    /* background-color: aqua; */
-}
-.project_item li {
-    margin-left: 2ch;
-    /* background-color: red; */
-}
-.project_item img {
+
+.project_section img {
     border: solid 1px black;
     margin-bottom: 0ch;
     max-height: 200px;
     max-width: 300px;
 }
-
-.project_item div {
-    overflow: auto;
-}
-.project_item div:last-child {
-    margin-bottom: 3ch;
-}
-.project_item div:nth-child(even) img {
+.project_section :nth-child(even) img {
     float: left;
     margin-right: 2ch;
 }
-
-.project_item div:nth-child(odd) img {
+.project_section :nth-child(odd) img {
     float:right;
     margin-left: 2ch;
+}
+
+.project_section p {
+    margin-top: 1ch;
+    text-align: justify;
+    background-color: red;
+}
+.project_section ul {
+    display: block;
+    float: left;
+
+    margin-top: 0ch;
+    margin-bottom: 0ch;
+
+    padding-left: 0ch;
+    background-color: aqua;
+}
+.project_section li {
+    margin-left: 2ch;
+    /* background-color: red; */
 }
