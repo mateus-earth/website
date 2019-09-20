@@ -10,3 +10,6 @@
 [submodule "games/minesweeper"]
 	path = games/minesweeper
 	url = https://stdmatt@gitlab.com/stdmatt-games/minesweeper.git
+[submodule "games/cosmicintruders"]
+	path = games/cosmicintruders
+	url = https://stdmatt@gitlab.com/stdmatt-games/cosmicintruders.git
