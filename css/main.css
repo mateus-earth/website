@@ -162,7 +162,7 @@ section {
 /*----------------------------------------------------------------------------*/
 .project_section
 {
-    background-color: green
+    /* background-color: green */
 
 }
 .project_section div:last-child {
@@ -185,19 +185,28 @@ section {
     max-height: 200px;
     max-width: 300px;
 }
-.project_section :nth-child(even) img {
+.project_section  img {
+    float: right;
+    margin-left: 2ch;
+}
+/* .project_section  img {
+    float: left;
+    margin-right: 2ch;
+} */
+
+/* .project_section :nth-child(even) img {
     float: left;
     margin-right: 2ch;
 }
 .project_section :nth-child(odd) img {
     float:right;
     margin-left: 2ch;
-}
+} */
 
 .project_section p {
     margin-top: 1ch;
-    text-align: justify;
-    background-color: red;
+    /* text-align: justify; */
+    /* background-color: red; */
 }
 .project_section ul {
     display: block;
@@ -207,7 +216,7 @@ section {
     margin-bottom: 0ch;
 
     padding-left: 0ch;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 .project_section li {
     margin-left: 2ch;
