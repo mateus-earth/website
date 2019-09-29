@@ -32,15 +32,18 @@ import pprint as pp;
 ##----------------------------------------------------------------------------##
 ## Constants                                                                  ##
 ##----------------------------------------------------------------------------##
-SCRIPT_PATH  = os.path.dirname(os.path.realpath(__file__));
-PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_PATH, ".."));
-POSTS_PATH   = os.path.join(PROJECT_ROOT, "posts");
+SCRIPT_PATH            = os.path.dirname(os.path.realpath(__file__));
+PROJECT_ROOT           = os.path.abspath(os.path.join(SCRIPT_PATH, ".."));
+POSTS_PATH             = os.path.join(PROJECT_ROOT, "posts");
+
+BLOG_OUTPUT_INDEX_FILENAME   = os.path.join(PROJECT_ROOT, "blog.html");
+BLOG_INDEX_TEMPLATE_FILENAME = os.path.join(SCRIPT_PATH,  "blog_index_template.html");
+
 
 POST_ITEM_INDEX_DATE    = 0;
 POST_ITEM_INDEX_SECTION = 1;
 POST_ITEM_INDEX_TITLE   = 2;
 POST_ITEM_INDEX_URL     = 3;
-
 
 ##----------------------------------------------------------------------------##
 ## Helper Functions                                                           ##
@@ -61,7 +64,7 @@ def extract_post_item_info(fullpath, section_name):
     f = open(fullpath);
 
     ##
-    ## @notice(stmatt): Here we are hardcoding that the first line is the title
+    ## @notice(stdmatt): Here we are hardcoding that the first line is the title
     ##   and the second line is the date, there's no specific reason to do that
     ##   but to gain time. I mean, is very simple system today and this
     ##   works great on that.
@@ -96,11 +99,10 @@ def sort_section_posts(posts_list):
         post_b = posts_list[i+1];
 
         if(sorter(post_a) == sorter(post_b)):
-            print post_a[2], sorter(post_a);
-            print post_b[2], sorter(post_b);
+            # print post_a[2], sorter(post_a);
+            # print post_b[2], sorter(post_b);
 
             if(os.path.getctime(post_a[3]) <= os.path.getctime(post_b[3])):
-                print "Es menor";
                 posts_list.pop(i);
                 posts_list.insert(i+1, post_a);
                 # print post_a[2], sorter(post_a);
@@ -186,7 +188,7 @@ def main():
             if(not os.path.isdir(full_post_dir)):
                 continue;
 
-            # print("Processing:", full_post_dir);
+            print("Processing:", full_post_dir);
             post_item = extract_post_item_info(full_post_path, section_name);
 
             ##
@@ -207,12 +209,9 @@ def main():
 
     ##
     ## Generate the final index.html
-    index_page = insert_resulting_html(
-        html,
-        os.path.join(PROJECT_ROOT, "index_template.html")
-    );
+    index_page = insert_resulting_html(html, BLOG_INDEX_TEMPLATE_FILENAME);
 
-    f = open(os.path.join(PROJECT_ROOT, "index.html"), "w");
+    f = open(os.path.join(PROJECT_ROOT, BLOG_OUTPUT_INDEX_FILENAME), "w");
     f.write(index_page);
     f.close();
 
