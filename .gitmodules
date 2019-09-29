@@ -1,0 +1,15 @@
+[submodule "games/snake"]
+	path = games/snake
+	url = https://stdmatt@gitlab.com/stdmatt-games/snake.git
+[submodule "games/nuclear_rain"]
+	path = games/nuclear_rain
+	url = https://stdmatt@gitlab.com/stdmatt-games/nuclear_rain.git
+[submodule "games/color_grid"]
+	path = games/color_grid
+	url = https://stdmatt@gitlab.com/stdmatt-games/color_grid.git
+[submodule "games/minesweeper"]
+	path = games/minesweeper
+	url = https://stdmatt@gitlab.com/stdmatt-games/minesweeper.git
+[submodule "games/cosmicintruders"]
+	path = games/cosmicintruders
+	url = https://stdmatt@gitlab.com/stdmatt-games/cosmicintruders.git

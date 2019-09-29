@@ -1,0 +1,140 @@
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<style>
+    body {
+        background: url(images/space-invaders-background.jpg) no-repeat bottom center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+
+    }
+
+    #Div_CanvasContainer {
+        width:  800px;
+        height: 730px;
+        border: 0px none;
+        position:absolute;
+        top   : 10;
+        left  : 0;
+        right : 0;
+        margin: 0 auto;
+        visibility: hidden;
+    }
+
+    canvas.emscripten {
+        border: 0px none;
+        margin-left:auto;
+        margin-right:auto;
+        display:block
+    }
+
+    #loadingDiv {
+        text-align : center;
+        color      : white;
+    }
+
+    #messageDiv {
+        text-align : center;
+        color      : white;
+    }
+
+    .container{
+        display : flex;
+        width   : 842px;
+    }
+    .fixed{
+        width:  810;
+    }
+    .flex-item{
+        text-align : right;
+        flex-grow  : 1;
+    }
+
+</style>
+</head>
+
+<body>
+    <div id="loadingDiv">
+        Loading, please wait...
+    </div>
+
+    <div id="Div_CanvasContainer">
+        <div class="container">
+            <div class="fixed">
+                <!-- ------------------------------------------------------- -->
+                <!-- Emscripten Canvas -->
+                <canvas class="emscripten" id="canvas"
+                    oncontextmenu="event.preventDefault()">
+                </canvas>
+            </div>
+
+            <!-- ----------------------------------------------------------- -->
+            <!-- Buttons -->
+            <div class="flex-item">
+                <!-- ------------------------------------------------------- -->
+                <!-- Git button -->
+                <img src="svg/git.svg" width="32px" height="32px"
+                    onclick="window.open('https://gitlab.com/stdmatt/cosmicintruders', '_blank')">
+                <br>
+
+                <!-- ------------------------------------------------------- -->
+                <!-- itch button -->
+                <img src="svg/itch.svg" width="32px" height="32px"
+                    onclick="window.open('', '_blank')">
+                <br>
+            </div>
+        </div>
+
+        <div id="messageDiv">
+            <br>
+            Made with <3 by
+                <u onclick="window.open('http://stdmatt.com', '_blank')">
+                    stdmatt
+                <u>
+        </div>
+    </div>
+
+
+    <!-- ------------------------------------------------------------------- -->
+    <!-- Emscripten Initialization                                           -->
+    <!-- ------------------------------------------------------------------- -->
+    <script type='text/javascript'>
+        var Module = {
+            onRuntimeInitialized: function() {
+                document.getElementById('Div_CanvasContainer').style.visibility = "visible";
+                document.getElementById('loadingDiv').style.visibility = "hidden";
+            },
+            canvas: (function() {
+                var canvas = document.getElementById('canvas');
+                    return canvas;
+                })()
+        };
+    </script>
+
+    <script>
+            (function() {
+                var memoryInitializer = 'CosmicIntruders.html.mem';
+                if (typeof Module['locateFile'] === 'function') {
+                    memoryInitializer = Module['locateFile'](memoryInitializer);
+                } else if (Module['memoryInitializerPrefixURL']) {
+                    memoryInitializer = Module['memoryInitializerPrefixURL'] + memoryInitializer;
+                }
+
+                var xhr = Module['memoryInitializerRequest'] = new XMLHttpRequest();
+                xhr.open('GET', memoryInitializer, true);
+                xhr.responseType = 'arraybuffer';
+                xhr.send(null);
+            })();
+
+            var script = document.createElement('script');
+            script.src = "CosmicIntruders.js";
+            document.body.appendChild(script);
+    </script>
+
+</body>
+</html>
