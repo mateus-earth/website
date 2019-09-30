@@ -39,6 +39,11 @@ POSTS_PATH             = os.path.join(PROJECT_ROOT, "posts");
 BLOG_OUTPUT_INDEX_FILENAME   = os.path.join(PROJECT_ROOT, "blog.html");
 BLOG_INDEX_TEMPLATE_FILENAME = os.path.join(SCRIPT_PATH,  "blog_index_template.html");
 
+META_TAGS = [
+    "Title:",
+    "Date:",
+    "Additional:"
+];
 
 POST_ITEM_INDEX_DATE    = 0;
 POST_ITEM_INDEX_SECTION = 1;
@@ -49,33 +54,47 @@ POST_ITEM_INDEX_URL     = 3;
 ## Helper Functions                                                           ##
 ##----------------------------------------------------------------------------##
 ##------------------------------------------------------------------------------
-def clean_the_meta_line(line, meta_tag):
+def clean_the_meta_line(line):
     ##
     ## Remove the html comments.
     line = line.strip().replace("<!--", "").replace("-->", "").strip();
+    return line;
 
-    ##
-    ## Remove the meta tag form the line.
-    h,s, content = line.partition(meta_tag);
-    return content.strip();
+##------------------------------------------------------------------------------
+def clean_spaces_and_new_lines(line):
+    return line.replace("\n", "").strip(" ");
 
 ##------------------------------------------------------------------------------
 def extract_post_item_info(fullpath, section_name):
     f = open(fullpath);
 
     ##
-    ## @notice(stdmatt): Here we are hardcoding that the first line is the title
-    ##   and the second line is the date, there's no specific reason to do that
-    ##   but to gain time. I mean, is very simple system today and this
-    ##   works great on that.
-    ##
-    ##   If there's a need to extrapolate and make something more flexible
-    ##   this is the place that we might want to consider to change ;D
-    title_line =  f.readline();
-    date_line  =  f.readline();
+    ## Read the meta info.
+    info = {};
+    while(True):
+        line = f.readline();
+        line = clean_spaces_and_new_lines(line);
 
-    title = clean_the_meta_line(title_line, "Title:");
-    date  = clean_the_meta_line(date_line, "Date:");
+        if(len(line) == 0):
+            continue;
+        if(not line.startswith("<!--")):
+            break;
+
+        line = clean_the_meta_line(line);
+        for meta_tag in META_TAGS:
+            if(line.startswith(meta_tag)):
+                info[meta_tag] = line[len(meta_tag):].strip();
+                break;
+
+    ##
+    ## Read the rest of the file.
+    info["content"] = [];
+    while(True):
+        line = f.readline();
+        if(len(line) == 0):
+            break;
+
+        info["content"].append(clean_spaces_and_new_lines(line));
 
     f.close();
 
@@ -84,8 +103,10 @@ def extract_post_item_info(fullpath, section_name):
     ## for the <a href="..."> at the index.html.
     base_path      = os.path.commonprefix((fullpath, PROJECT_ROOT));
     relative_path  = fullpath.replace(base_path, ".");
+    info["relative_path"] = relative_path;
 
-    return date, section_name, title, relative_path;
+    pp.pprint(info);
+    return info;
 
 ##------------------------------------------------------------------------------
 def sort_section_posts(posts_list):
@@ -166,6 +187,9 @@ def insert_resulting_html(html_to_insert, template_filename):
     return ("").join(lines);
 
 
+def is_hidden_path(path):
+    return os.path.basename(path).startswith(".");
+
 ##----------------------------------------------------------------------------##
 ## Entry Point                                                                ##
 ##----------------------------------------------------------------------------##
@@ -178,51 +202,51 @@ def main():
     posts_to_do  = [];
 
     for section_dir in section_dirs:
-        section_dir                 = os.path.join(POSTS_PATH, section_dir);
+        section_dir = os.path.join(POSTS_PATH, section_dir);
+        if(is_hidden_path(section_dir)):
+            continue;
+
         section_name, section_index = clear_section_name(section_dir);
-
         for post_dir in os.listdir(section_dir):
-            full_post_dir  = os.path.join(section_dir, post_dir);
-            full_post_path = os.path.join(full_post_dir, "index.html");
-
-            if(not os.path.isdir(full_post_dir)):
+            full_post_path  = os.path.join(section_dir, post_dir);
+            if(is_hidden_path(full_post_path)):
                 continue;
 
-            print("Processing:", full_post_dir);
-            post_item = extract_post_item_info(full_post_path, section_name);
+            print("Processing:", full_post_path);
+            post_item_info = extract_post_item_info(full_post_path, section_name);
 
-            ##
-            ## @notice(stdmatt): We're setting the __ (double underscores)
-            ## title prefix as a way to indicate that the post isn't completed
-            ## yet, so we won't add it to the sections, but to another list
-            ## that will be printed to remember us to write the post.
-            if(post_item[POST_ITEM_INDEX_TITLE].startswith("__")):
-                    posts_to_do.append(post_item);
-            else:
-                sections[section_index].append(post_item);
+            # ##
+            # ## @notice(stdmatt): We're setting the __ (double underscores)
+            # ## title prefix as a way to indicate that the post isn't completed
+            # ## yet, so we won't add it to the sections, but to another list
+            # ## that will be printed to remember us to write the post.
+            # if(post_item[POST_ITEM_INDEX_TITLE].startswith("__")):
+            #         posts_to_do.append(post_item);
+            # else:
+            #     sections[section_index].append(post_item);
 
-        sort_section_posts(sections[section_index]);
+        # sort_section_posts(sections[section_index]);
 
-    ##
-    ## Generate the sections and posts html that will be inserted on index.html
-    html = generate_html(sections);
+    # ##
+    # ## Generate the sections and posts html that will be inserted on index.html
+    # html = generate_html(sections);
 
-    ##
-    ## Generate the final index.html
-    index_page = insert_resulting_html(html, BLOG_INDEX_TEMPLATE_FILENAME);
+    # ##
+    # ## Generate the final index.html
+    # index_page = insert_resulting_html(html, BLOG_INDEX_TEMPLATE_FILENAME);
 
-    f = open(os.path.join(PROJECT_ROOT, BLOG_OUTPUT_INDEX_FILENAME), "w");
-    f.write(index_page);
-    f.close();
+    # f = open(os.path.join(PROJECT_ROOT, BLOG_OUTPUT_INDEX_FILENAME), "w");
+    # f.write(index_page);
+    # f.close();
 
-    ##
-    ## Let's write all the posts that we need to complete!
-    print("---- POSTS TO DO -----");
-    for post_item in posts_to_do:
-        print("Title: {0} - Section: {1}".format(
-            post_item[POST_ITEM_INDEX_TITLE],
-            post_item[POST_ITEM_INDEX_SECTION]
-        ));
+    # ##
+    # ## Let's write all the posts that we need to complete!
+    # print("---- POSTS TO DO -----");
+    # for post_item in posts_to_do:
+    #     print("Title: {0} - Section: {1}".format(
+    #         post_item[POST_ITEM_INDEX_TITLE],
+    #         post_item[POST_ITEM_INDEX_SECTION]
+    #     ));
 
 
 if __name__ == '__main__':
