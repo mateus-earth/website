@@ -39,19 +39,42 @@ POSTS_PATH             = os.path.join(PROJECT_ROOT, "posts");
 BLOG_OUTPUT_INDEX_FILENAME   = os.path.join(PROJECT_ROOT, "blog.html");
 BLOG_INDEX_TEMPLATE_FILENAME = os.path.join(SCRIPT_PATH,  "blog_index_template.html");
 
+META_TAG_TITLE      = "Title:";
+META_TAG_DATE       = "Date:";
+META_TAG_ADDITIONAL = "Additional:";
+
 META_TAGS = [
-    "Title:",
-    "Date:",
-    "Additional:"
+    META_TAG_TITLE,
+    META_TAG_DATE,
+    META_TAG_ADDITIONAL
 ];
 
-POST_ITEM_INDEX_DATE    = 0;
-POST_ITEM_INDEX_SECTION = 1;
-POST_ITEM_INDEX_TITLE   = 2;
-POST_ITEM_INDEX_URL     = 3;
+INFO_TAG_SECTION       = "section";
+INFO_TAG_CONTENT       = "content";
+INFO_TAG_RELATIVE_PATH = "relative_path";
+
+INFO_TAGS_REQUIRED = [
+    META_TAG_TITLE,
+    META_TAG_DATE,
+    INFO_TAG_SECTION,
+    INFO_TAG_CONTENT,
+    INFO_TAG_RELATIVE_PATH,
+];
 
 ##----------------------------------------------------------------------------##
 ## Helper Functions                                                           ##
+##----------------------------------------------------------------------------##
+def fatal(fmt, *args):
+    s = fmt.format(*args);
+    print(s);
+    exit(1);
+
+##------------------------------------------------------------------------------
+def clean_spaces_and_new_lines(line):
+    return line.replace("\n", "").strip(" ");
+
+##----------------------------------------------------------------------------##
+## Meta                                                                       ##
 ##----------------------------------------------------------------------------##
 ##------------------------------------------------------------------------------
 def clean_the_meta_line(line):
@@ -60,17 +83,18 @@ def clean_the_meta_line(line):
     line = line.strip().replace("<!--", "").replace("-->", "").strip();
     return line;
 
-##------------------------------------------------------------------------------
-def clean_spaces_and_new_lines(line):
-    return line.replace("\n", "").strip(" ");
-
+##----------------------------------------------------------------------------##
+## Post Info                                                                  ##
+##----------------------------------------------------------------------------##
 ##------------------------------------------------------------------------------
 def extract_post_item_info(fullpath, section_name):
     f = open(fullpath);
 
+    info = {};
+    info[INFO_TAG_SECTION] = section_name;
+
     ##
     ## Read the meta info.
-    info = {};
     while(True):
         line = f.readline();
         line = clean_spaces_and_new_lines(line);
@@ -88,13 +112,13 @@ def extract_post_item_info(fullpath, section_name):
 
     ##
     ## Read the rest of the file.
-    info["content"] = [];
+    info[INFO_TAG_CONTENT] = [];
     while(True):
         line = f.readline();
         if(len(line) == 0):
             break;
 
-        info["content"].append(clean_spaces_and_new_lines(line));
+        info[INFO_TAG_CONTENT].append(clean_spaces_and_new_lines(line));
 
     f.close();
 
@@ -103,10 +127,28 @@ def extract_post_item_info(fullpath, section_name):
     ## for the <a href="..."> at the index.html.
     base_path      = os.path.commonprefix((fullpath, PROJECT_ROOT));
     relative_path  = fullpath.replace(base_path, ".");
-    info["relative_path"] = relative_path;
+    info[INFO_TAG_RELATIVE_PATH] = relative_path;
 
-    pp.pprint(info);
     return info;
+
+##------------------------------------------------------------------------------
+def ensure_valid_post_info(post_info):
+    for tag in INFO_TAGS_REQUIRED:
+        if(not post_info.has_key(tag)):
+            fatal(
+                "Post info doesn't contains required tag: ({0})\n\nDump:\n{1}",
+                tag,
+                pp.pformat(post_info)
+            );
+
+        if(len(post_info[tag]) == 0):
+            fatal(
+                "Post info tag is empty: ({0})\n\nDump:\n{1}",
+                tag,
+                pp.pformat(post_info)
+            );
+
+
 
 ##------------------------------------------------------------------------------
 def sort_section_posts(posts_list):
@@ -214,6 +256,7 @@ def main():
 
             print("Processing:", full_post_path);
             post_item_info = extract_post_item_info(full_post_path, section_name);
+            ensure_valid_post_info(post_item_info);
 
             # ##
             # ## @notice(stdmatt): We're setting the __ (double underscores)
