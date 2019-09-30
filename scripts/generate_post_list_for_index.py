@@ -36,8 +36,14 @@ SCRIPT_PATH            = os.path.dirname(os.path.realpath(__file__));
 PROJECT_ROOT           = os.path.abspath(os.path.join(SCRIPT_PATH, ".."));
 POSTS_PATH             = os.path.join(PROJECT_ROOT, "posts");
 
+BLOG_OUTPUT_POSTS_DIRECTORY  = os.path.join(PROJECT_ROOT, "blog");
 BLOG_OUTPUT_INDEX_FILENAME   = os.path.join(PROJECT_ROOT, "blog.html");
 BLOG_INDEX_TEMPLATE_FILENAME = os.path.join(SCRIPT_PATH,  "blog_index_template.html");
+
+
+BLOG_PAGE_START_TEMPLATE = os.path.join(SCRIPT_PATH, "page_start_template.html");
+BLOG_PAGE_MENU_TEMPLATE  = os.path.join(SCRIPT_PATH, "menu_template.html");
+BLOG_PAGE_END_TEMPLATE   = os.path.join(SCRIPT_PATH, "page_end_template.html");
 
 META_TAG_TITLE      = "Title:";
 META_TAG_DATE       = "Date:";
@@ -49,9 +55,10 @@ META_TAGS = [
     META_TAG_ADDITIONAL
 ];
 
-INFO_TAG_SECTION       = "section";
-INFO_TAG_CONTENT       = "content";
-INFO_TAG_RELATIVE_PATH = "relative_path";
+INFO_TAG_SECTION        = "section";
+INFO_TAG_CONTENT        = "content";
+INFO_TAG_RELATIVE_PATH  = "relative_path";
+INFO_TAG_CLEAN_FILENAME = "clean_filename";
 
 INFO_TAGS_REQUIRED = [
     META_TAG_TITLE,
@@ -59,19 +66,42 @@ INFO_TAGS_REQUIRED = [
     INFO_TAG_SECTION,
     INFO_TAG_CONTENT,
     INFO_TAG_RELATIVE_PATH,
+    INFO_TAG_CLEAN_FILENAME,
 ];
+
 
 ##----------------------------------------------------------------------------##
 ## Helper Functions                                                           ##
 ##----------------------------------------------------------------------------##
+##------------------------------------------------------------------------------
 def fatal(fmt, *args):
     s = fmt.format(*args);
     print(s);
     exit(1);
 
 ##------------------------------------------------------------------------------
+def log(fmt, *args):
+    s = fmt.format(*args);
+    print(s);
+
+##------------------------------------------------------------------------------
 def clean_spaces_and_new_lines(line):
     return line.replace("\n", "").strip(" ");
+
+##------------------------------------------------------------------------------
+def is_hidden_path(path):
+    return os.path.basename(path).startswith(".");
+
+##------------------------------------------------------------------------------
+def read_file(path):
+    f = open(path, "r");
+    s = f.read();
+    f.close();
+    return s;
+
+##------------------------------------------------------------------------------
+def create_directory(path):
+    os.system("mkdir -p {0}".format(path));
 
 ##----------------------------------------------------------------------------##
 ## Meta                                                                       ##
@@ -123,11 +153,13 @@ def extract_post_item_info(fullpath, section_name):
     f.close();
 
     ##
-    ## We need to do that becuase the relative path will become the URL
-    ## for the <a href="..."> at the index.html.
+    ## Build the relative path and clean filename.
     base_path      = os.path.commonprefix((fullpath, PROJECT_ROOT));
     relative_path  = fullpath.replace(base_path, ".");
-    info[INFO_TAG_RELATIVE_PATH] = relative_path;
+    clean_filename = os.path.basename(fullpath);
+
+    info[INFO_TAG_RELATIVE_PATH]  = relative_path;
+    info[INFO_TAG_CLEAN_FILENAME] = clean_filename;
 
     return info;
 
@@ -148,12 +180,13 @@ def ensure_valid_post_info(post_info):
                 pp.pformat(post_info)
             );
 
-
-
+##----------------------------------------------------------------------------##
+## Section                                                                    ##
+##----------------------------------------------------------------------------##
 ##------------------------------------------------------------------------------
 def sort_section_posts(posts_list):
     sorter = lambda post_item: time.mktime(
-        datetime.datetime.strptime(post_item[0], "%d/%m/%Y").timetuple()
+        datetime.datetime.strptime(post_item[META_TAG_DATE], "%d/%m/%Y").timetuple()
     );
     posts_list.sort(key=sorter, reverse=True);
 
@@ -162,16 +195,13 @@ def sort_section_posts(posts_list):
         post_b = posts_list[i+1];
 
         if(sorter(post_a) == sorter(post_b)):
-            # print post_a[2], sorter(post_a);
-            # print post_b[2], sorter(post_b);
-
-            if(os.path.getctime(post_a[3]) <= os.path.getctime(post_b[3])):
+            post_a_path = post_a[INFO_TAG_RELATIVE_PATH];
+            post_b_path = post_b[INFO_TAG_RELATIVE_PATH];
+            # print post_a_path, sorter(post_a);
+            # print post_b_path, sorter(post_b);
+            if(os.path.getctime(post_a_path) <= os.path.getctime(post_b_path)):
                 posts_list.pop(i);
                 posts_list.insert(i+1, post_a);
-                # print post_a[2], sorter(post_a);
-                # print post_b[2], sorter(post_b);
-
-            print "---";
 
 ##------------------------------------------------------------------------------
 def clear_section_name(section_dir):
@@ -228,10 +258,6 @@ def insert_resulting_html(html_to_insert, template_filename):
         lines.append(line);
     return ("").join(lines);
 
-
-def is_hidden_path(path):
-    return os.path.basename(path).startswith(".");
-
 ##----------------------------------------------------------------------------##
 ## Entry Point                                                                ##
 ##----------------------------------------------------------------------------##
@@ -249,6 +275,8 @@ def main():
             continue;
 
         section_name, section_index = clear_section_name(section_dir);
+
+        ## Parse the posts information.
         for post_dir in os.listdir(section_dir):
             full_post_path  = os.path.join(section_dir, post_dir);
             if(is_hidden_path(full_post_path)):
@@ -258,17 +286,41 @@ def main():
             post_item_info = extract_post_item_info(full_post_path, section_name);
             ensure_valid_post_info(post_item_info);
 
-            # ##
-            # ## @notice(stdmatt): We're setting the __ (double underscores)
-            # ## title prefix as a way to indicate that the post isn't completed
-            # ## yet, so we won't add it to the sections, but to another list
-            # ## that will be printed to remember us to write the post.
-            # if(post_item[POST_ITEM_INDEX_TITLE].startswith("__")):
-            #         posts_to_do.append(post_item);
-            # else:
-            #     sections[section_index].append(post_item);
+            ##
+            ## @notice(stdmatt): We're setting the __ (double underscores)
+            ## title prefix as a way to indicate that the post isn't completed
+            ## yet, so we won't add it to the sections, but to another list
+            ## that will be printed to remember us to write the post.
+            if(post_item_info[META_TAG_TITLE].startswith("__")):
+                    posts_to_do.append(post_item_info);
+            else:
+                sections[section_index].append(post_item_info);
 
-        # sort_section_posts(sections[section_index]);
+        ## Sort them into the section.
+        sort_section_posts(sections[section_index]);
+
+
+    header = read_file(BLOG_PAGE_START_TEMPLATE );
+    menu   = read_file(BLOG_PAGE_MENU_TEMPLATE  );
+    footer = read_file(BLOG_PAGE_END_TEMPLATE   );
+
+    for section in sections:
+        for post in section:
+            ## Create the section directory.
+            post_dir = os.path.join(BLOG_OUTPUT_POSTS_DIRECTORY, post[INFO_TAG_SECTION]);
+            create_directory(post_dir);
+
+            ## Open the post file to writting.
+            post_fullpath = os.path.join(post_dir, post[INFO_TAG_CLEAN_FILENAME]);
+            f = open(post_fullpath, "w");
+
+            post_content  = header;
+            post_content += menu;
+
+            post_content += footer;
+
+            f.write(post_content);
+            f.close();
 
     # ##
     # ## Generate the sections and posts html that will be inserted on index.html
