@@ -118,7 +118,9 @@ def clean_the_meta_line(line):
 ##----------------------------------------------------------------------------##
 ##------------------------------------------------------------------------------
 def extract_post_item_info(fullpath, section_name):
-    f = open(fullpath);
+    f           = open(fullpath);
+    lines       = f.readlines();
+    lines_index = 0;
 
     info = {};
     info[INFO_TAG_SECTION] = section_name;
@@ -126,11 +128,13 @@ def extract_post_item_info(fullpath, section_name):
     ##
     ## Read the meta info.
     while(True):
-        line = f.readline();
+        line = lines[lines_index];
         line = clean_spaces_and_new_lines(line);
 
         if(len(line) == 0):
+            lines_index += 1;
             continue;
+
         if(not line.startswith("<!--")):
             break;
 
@@ -140,15 +144,15 @@ def extract_post_item_info(fullpath, section_name):
                 info[meta_tag] = line[len(meta_tag):].strip();
                 break;
 
+        lines_index += 1;
+
     ##
     ## Read the rest of the file.
     info[INFO_TAG_CONTENT] = [];
-    while(True):
-        line = f.readline();
-        if(len(line) == 0):
-            break;
-
+    while(lines_index < len(lines)):
+        line = lines[lines_index];
         info[INFO_TAG_CONTENT].append(clean_spaces_and_new_lines(line));
+        lines_index += 1;
 
     f.close();
 
@@ -300,10 +304,14 @@ def main():
         sort_section_posts(sections[section_index]);
 
 
+    ##
+    ## Read the html templates for the blog posts.
     header = read_file(BLOG_PAGE_START_TEMPLATE );
     menu   = read_file(BLOG_PAGE_MENU_TEMPLATE  );
     footer = read_file(BLOG_PAGE_END_TEMPLATE   );
 
+    ##
+    ## Genereate the blog posts.
     for section in sections:
         for post in section:
             ## Create the section directory.
@@ -316,6 +324,15 @@ def main():
 
             post_content  = header;
             post_content += menu;
+
+            post_content += "<div class=\"blog_content\">\n"
+            post_content += "<title>" + post[META_TAG_TITLE] + "</title>\n"
+            if(post.has_key(META_TAG_ADDITIONAL)):
+                post_content += "<br>" + post[META_TAG_ADDITIONAL] + "\n";
+            post_content += "<hr>\n"
+
+            for line in post[INFO_TAG_CONTENT]:
+                post_content += line + "\n";
 
             post_content += footer;
 
