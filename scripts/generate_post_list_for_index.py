@@ -32,19 +32,21 @@ import pprint as pp;
 ##----------------------------------------------------------------------------##
 ## Constants                                                                  ##
 ##----------------------------------------------------------------------------##
-SCRIPT_PATH            = os.path.dirname(os.path.realpath(__file__));
-PROJECT_ROOT           = os.path.abspath(os.path.join(SCRIPT_PATH, ".."));
-POSTS_PATH             = os.path.join(PROJECT_ROOT, "posts");
+SCRIPT_PATH  = os.path.dirname(os.path.realpath(__file__));
+PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_PATH, ".."));
+POSTS_PATH   = os.path.join(PROJECT_ROOT, "posts");
 
+##------------------------------------------------------------------------------
 BLOG_OUTPUT_POSTS_DIRECTORY  = os.path.join(PROJECT_ROOT, "blog");
 BLOG_OUTPUT_INDEX_FILENAME   = os.path.join(PROJECT_ROOT, "blog.html");
 BLOG_INDEX_TEMPLATE_FILENAME = os.path.join(SCRIPT_PATH,  "blog_index_template.html");
 
-
+##------------------------------------------------------------------------------
 BLOG_PAGE_START_TEMPLATE = os.path.join(SCRIPT_PATH, "page_start_template.html");
 BLOG_PAGE_MENU_TEMPLATE  = os.path.join(SCRIPT_PATH, "menu_template.html");
 BLOG_PAGE_END_TEMPLATE   = os.path.join(SCRIPT_PATH, "page_end_template.html");
 
+##------------------------------------------------------------------------------
 META_TAG_TITLE      = "Title:";
 META_TAG_DATE       = "Date:";
 META_TAG_ADDITIONAL = "Additional:";
@@ -55,6 +57,7 @@ META_TAGS = [
     META_TAG_ADDITIONAL
 ];
 
+##------------------------------------------------------------------------------
 INFO_TAG_SECTION        = "section";
 INFO_TAG_CONTENT        = "content";
 INFO_TAG_RELATIVE_PATH  = "relative_path";
@@ -102,6 +105,13 @@ def read_file(path):
 ##------------------------------------------------------------------------------
 def create_directory(path):
     os.system("mkdir -p {0}".format(path));
+
+##------------------------------------------------------------------------------
+def get_relative_path(path1, path2):
+    base_path      = os.path.commonprefix([path1, path2]);
+    relative_path  = path1.replace(base_path, ".");
+    return relative_path;
+
 
 ##----------------------------------------------------------------------------##
 ## Meta                                                                       ##
@@ -158,11 +168,10 @@ def extract_post_item_info(fullpath, section_name):
 
     ##
     ## Build the relative path and clean filename.
-    base_path      = os.path.commonprefix((fullpath, PROJECT_ROOT));
-    relative_path  = fullpath.replace(base_path, ".");
+    relative_path  = get_relative_path(fullpath, PROJECT_ROOT);
     clean_filename = os.path.basename(fullpath);
 
-    info[INFO_TAG_RELATIVE_PATH]  = relative_path;
+    info[INFO_TAG_RELATIVE_PATH ] = relative_path;
     info[INFO_TAG_CLEAN_FILENAME] = clean_filename;
 
     return info;
@@ -228,7 +237,7 @@ def generate_html(sections_list):
         if(len(section) == 0):
             continue;
 
-        section_name = section[0][POST_ITEM_INDEX_SECTION];
+        section_name = section[0][INFO_TAG_SECTION];
 
         html += """<div style="text-transform: uppercase;" "="">""";
         html += """<b>%s</b>""" % section_name;
@@ -236,9 +245,13 @@ def generate_html(sections_list):
 
         last_year = None;
         for post in section:
-            date  = post[POST_ITEM_INDEX_DATE ];
-            title = post[POST_ITEM_INDEX_TITLE];
-            url   = post[POST_ITEM_INDEX_URL  ];
+            date  = post[META_TAG_DATE ];
+            title = post[META_TAG_TITLE];
+            url   = os.path.join(
+                get_relative_path(BLOG_OUTPUT_POSTS_DIRECTORY, PROJECT_ROOT),
+                post[INFO_TAG_SECTION],
+                post[INFO_TAG_CLEAN_FILENAME]
+            );
 
             year = date.split("/")[2];
             if(last_year != year):
@@ -246,21 +259,11 @@ def generate_html(sections_list):
                     html += "<br>";
                 last_year = year;
 
-
             html += """%s: <a href="%s">%s</a><br>""" % (date, url, title);
 
         html += "<br>";
     return html;
 
-##------------------------------------------------------------------------------
-def insert_resulting_html(html_to_insert, template_filename):
-    lines = [];
-    f = open(template_filename, "r");
-    for line in f.readlines():
-        if(line.strip() == "__SECTIONS_AND_POSTS_LISTS_TO_BE_REPLACED__"):
-            line = html_to_insert;
-        lines.append(line);
-    return ("").join(lines);
 
 ##----------------------------------------------------------------------------##
 ## Entry Point                                                                ##
@@ -339,26 +342,16 @@ def main():
             f.write(post_content);
             f.close();
 
-    # ##
-    # ## Generate the sections and posts html that will be inserted on index.html
-    # html = generate_html(sections);
+    ##
+    ## Generate the sections and posts html that will be inserted on index.html
+    posts_index_content  = header;
+    posts_index_content += menu;
+    posts_index_content += generate_html(sections);
+    posts_index_content += footer;
 
-    # ##
-    # ## Generate the final index.html
-    # index_page = insert_resulting_html(html, BLOG_INDEX_TEMPLATE_FILENAME);
-
-    # f = open(os.path.join(PROJECT_ROOT, BLOG_OUTPUT_INDEX_FILENAME), "w");
-    # f.write(index_page);
-    # f.close();
-
-    # ##
-    # ## Let's write all the posts that we need to complete!
-    # print("---- POSTS TO DO -----");
-    # for post_item in posts_to_do:
-    #     print("Title: {0} - Section: {1}".format(
-    #         post_item[POST_ITEM_INDEX_TITLE],
-    #         post_item[POST_ITEM_INDEX_SECTION]
-    #     ));
+    f = open(os.path.join(PROJECT_ROOT, BLOG_OUTPUT_INDEX_FILENAME), "w");
+    f.write(posts_index_content);
+    f.close();
 
 
 if __name__ == '__main__':
