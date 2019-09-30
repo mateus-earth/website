@@ -37,9 +37,8 @@ PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_PATH, ".."));
 POSTS_PATH   = os.path.join(PROJECT_ROOT, "posts");
 
 ##------------------------------------------------------------------------------
-BLOG_OUTPUT_POSTS_DIRECTORY  = os.path.join(PROJECT_ROOT, "blog");
-BLOG_OUTPUT_INDEX_FILENAME   = os.path.join(PROJECT_ROOT, "blog.html");
-BLOG_INDEX_TEMPLATE_FILENAME = os.path.join(SCRIPT_PATH,  "blog_index_template.html");
+BLOG_OUTPUT_POSTS_DIRECTORY = os.path.join(PROJECT_ROOT, "blog");
+BLOG_OUTPUT_INDEX_FILENAME  = os.path.join(PROJECT_ROOT, "blog.html");
 
 ##------------------------------------------------------------------------------
 BLOG_PAGE_START_TEMPLATE = os.path.join(SCRIPT_PATH, "page_start_template.html");
