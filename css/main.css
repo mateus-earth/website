@@ -162,66 +162,36 @@ section {
 /*----------------------------------------------------------------------------*/
 .project_section
 {
-    /* background-color: green */
-
+    background-color: green
 }
-.project_section div:last-child {
-    margin-bottom: 3ch;
-}
-
-.project_section div {
-    overflow: auto;
+.project_item
+{
+    width: 100%;
+    display: inline-block;
 }
 
-.project_section section {
-    text-transform: uppercase;
-    font-weight: bold;
-    /* background-color: red; */
-}
-
-.project_section img {
-    border: solid 1px black;
-    margin-bottom: 0ch;
-    max-height: 200px;
-    max-width: 300px;
-}
-.project_section  img {
-    float: right;
-    margin-left: 2ch;
-}
-/* .project_section  img {
-    float: left;
-    margin-right: 2ch;
-} */
-
-/* .project_section :nth-child(even) img {
-    float: left;
-    margin-right: 2ch;
-}
-.project_section :nth-child(odd) img {
-    float:right;
-    margin-left: 2ch;
-} */
-
-.project_section p {
-    margin-top: 1ch;
-    /* text-align: justify; */
-    /* background-color: red; */
-}
-.project_section ul {
+.project_item div:first-of-type { /* the image */
     display: block;
-    float: left;
-
-    margin-top: 0ch;
-    margin-bottom: 0ch;
-
-    padding-left: 0ch;
-    /* background-color: aqua; */
-}
-.project_section li {
-    margin-left: 2ch;
+    width:30%;
+    float: right;
     /* background-color: red; */
 }
+.project_item div:last-of-type { /* The contents */
+    width:69%;
+    float: left;
+    background-color: cyan;
+}
+.project_item img {
+    border: solid 1px black;
+}
+.project_item ul {
+    /* display: inline-block; */
+    /* float: left; */
+    margin-top: -1.5ch;
+    margin-bottom: 1ch;
+    padding-left: 3ch
+}
+
 
 /*----------------------------------------------------------------------------*/
 /* Game Builds Page                                                           */
