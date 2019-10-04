@@ -162,34 +162,38 @@ section {
 /*----------------------------------------------------------------------------*/
 .project_section
 {
-    background-color: green
+    /* background-color: green */
 }
 .project_item
 {
     width: 100%;
-    display: inline-block;
+    display: block;
 }
 
 .project_item div:first-of-type { /* the image */
     display: block;
     width:30%;
     float: right;
-    /* background-color: red; */
+    background-color: red;
 }
 .project_item div:last-of-type { /* The contents */
     width:69%;
-    float: left;
-    background-color: cyan;
+    /* float: left; */
+    /* background-color: cyan; */
 }
+
 .project_item img {
     border: solid 1px black;
 }
 .project_item ul {
-    /* display: inline-block; */
+    display: block;
     /* float: left; */
-    margin-top: -1.5ch;
+    margin-top: 0ch;
     margin-bottom: 1ch;
     padding-left: 3ch
+}
+.project_item li {
+    /* margin-top: -1.5ch; */
 }
 
 
