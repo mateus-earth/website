@@ -160,13 +160,13 @@ section {
 /*----------------------------------------------------------------------------*/
 /* Project / Games                                                            */
 /*----------------------------------------------------------------------------*/
-.project_section
-{
+.project_section {
     /* background-color: green */
-    margin-bottom: 5ch;
+    margin-bottom: 2ch;
+    border-bottom: 1px solid hsla(37, 54%, 66%, 0.0);
 }
-.project_item
-{
+
+.project_item {
     width: 100%;
     display: block;
 }
