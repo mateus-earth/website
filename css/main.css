@@ -175,7 +175,7 @@ section {
     display: block;
     width:30%;
     float: right;
-    background-color: red;
+    /* background-color: red; */
 }
 .project_item div:last-of-type { /* The contents */
     width:69%;
@@ -189,6 +189,7 @@ section {
     max-width:  100%;
     max-height: 350px;
     object-fit: contain;
+    float: right;
     border: solid 1px black;
 }
 .project_item ul {
