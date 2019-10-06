@@ -183,6 +183,11 @@ section {
 }
 
 .project_item img {
+    display: block;
+    /* width: 100%; */
+    max-width:  100%;
+    max-height: 350px;
+    object-fit: contain;
     border: solid 1px black;
 }
 .project_item ul {
