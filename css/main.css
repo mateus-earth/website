@@ -160,68 +160,49 @@ section {
 /*----------------------------------------------------------------------------*/
 /* Project / Games                                                            */
 /*----------------------------------------------------------------------------*/
-.project_section
-{
+.project_section {
     /* background-color: green */
-
-}
-.project_section div:last-child {
-    margin-bottom: 3ch;
+    margin-bottom: 2ch;
+    border-bottom: 1px solid hsla(37, 54%, 66%, 0.0);
 }
 
-.project_section div {
-    overflow: auto;
-}
-
-.project_section section {
-    text-transform: uppercase;
-    font-weight: bold;
-    /* background-color: red; */
-}
-
-.project_section img {
-    border: solid 1px black;
-    margin-bottom: 0ch;
-    max-height: 200px;
-    max-width: 300px;
-}
-.project_section  img {
-    float: right;
-    margin-left: 2ch;
-}
-/* .project_section  img {
-    float: left;
-    margin-right: 2ch;
-} */
-
-/* .project_section :nth-child(even) img {
-    float: left;
-    margin-right: 2ch;
-}
-.project_section :nth-child(odd) img {
-    float:right;
-    margin-left: 2ch;
-} */
-
-.project_section p {
-    margin-top: 1ch;
-    /* text-align: justify; */
-    /* background-color: red; */
-}
-.project_section ul {
+.project_item {
+    width: 100%;
     display: block;
-    float: left;
-
-    margin-top: 0ch;
-    margin-bottom: 0ch;
-
-    padding-left: 0ch;
-    /* background-color: aqua; */
 }
-.project_section li {
-    margin-left: 2ch;
+
+.project_item div:first-of-type { /* the image */
+    display: block;
+    width:30%;
+    float: right;
     /* background-color: red; */
 }
+.project_item div:last-of-type { /* The contents */
+    width:69%;
+    /* float: left; */
+    /* background-color: cyan; */
+}
+
+.project_item img {
+    display: block;
+    /* width: 100%; */
+    max-width:  100%;
+    max-height: 350px;
+    object-fit: contain;
+    float: right;
+    border: solid 1px black;
+}
+.project_item ul {
+    display: block;
+    /* float: left; */
+    margin-top: 0ch;
+    margin-bottom: 1ch;
+    padding-left: 3ch
+}
+.project_item li {
+    /* margin-top: -1.5ch; */
+}
+
 
 /*----------------------------------------------------------------------------*/
 /* Game Builds Page                                                           */
