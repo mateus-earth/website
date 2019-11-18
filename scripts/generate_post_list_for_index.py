@@ -92,7 +92,8 @@ def clean_spaces_and_new_lines(line):
 
 ##------------------------------------------------------------------------------
 def is_hidden_path(path):
-    return os.path.basename(path).startswith(".");
+    basename = os.path.basename(path);
+    return basename.startswith("__") or basename.startswith(".");
 
 ##------------------------------------------------------------------------------
 def read_file(path):
@@ -277,6 +278,7 @@ def main():
 
     for section_dir in section_dirs:
         section_dir = os.path.join(POSTS_PATH, section_dir);
+        print(section_dir);
         if(is_hidden_path(section_dir)):
             continue;
 
