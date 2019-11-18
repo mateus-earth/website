@@ -71,6 +71,9 @@ INFO_TAGS_REQUIRED = [
     INFO_TAG_CLEAN_FILENAME,
 ];
 
+##------------------------------------------------------------------------------
+MIN_SECTIONS_COUNT = 3;
+
 
 ##----------------------------------------------------------------------------##
 ## Helper Functions                                                           ##
@@ -272,9 +275,10 @@ def generate_html(sections_list):
 def main():
     ##
     ## Gather the information for each and every post inside the ./posts directory.
-    section_dirs = os.listdir(POSTS_PATH);
-    sections     = create_arr(len(section_dirs));
-    posts_to_do  = [];
+    section_dirs       = os.listdir(POSTS_PATH);
+    min_sections_count = max(len(section_dirs), MIN_SECTIONS_COUNT);
+    sections           = create_arr(min_sections_count);
+    posts_to_do        = [];
 
     for section_dir in section_dirs:
         section_dir = os.path.join(POSTS_PATH, section_dir);
