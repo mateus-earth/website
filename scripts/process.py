@@ -1,25 +1,39 @@
 #!/usr/bin/env python3
 
+##----------------------------------------------------------------------------##
+## Imports                                                                    ##
+##----------------------------------------------------------------------------##
 import os;
 import os.path;
 from pathlib import Path;
 
-
+##----------------------------------------------------------------------------##
+## Helper Functions                                                           ##
+##----------------------------------------------------------------------------##
+##------------------------------------------------------------------------------
 def canonize_path(path):
     return os.path.abspath(os.path.normpath(os.path.expanduser(path)));
 
+##------------------------------------------------------------------------------
 def get_script_dir():
     path = canonize_path(__file__);
     return os.path.dirname(path);
 
+##------------------------------------------------------------------------------
 def is_template_line(line):
     line = line.replace("\n", "").strip(" ");
     return line.startswith("{!") and line.endswith("}");
 
+##------------------------------------------------------------------------------
 def get_template_filename(line):
     line = line.replace("\n", "").strip(" ");
     return line.replace("{!", "").replace("}", "");
 
+
+##----------------------------------------------------------------------------##
+## Entry Point                                                                ##
+##----------------------------------------------------------------------------##
+##------------------------------------------------------------------------------
 def main():
     script_dir = get_script_dir();
     start_path = os.path.join(script_dir, "..");
@@ -57,4 +71,7 @@ def main():
 
         with open(html_filename, "w") as wf:
             wf.writelines(html_lines);
-main();
+
+
+if(__name__ == "__main__"):
+    main();
