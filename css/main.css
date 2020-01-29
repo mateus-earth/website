@@ -19,6 +19,18 @@
 /* @todo(stdmatt): Thanks to fabien about the css..                           */
 /*                                                                            */
 /* -------------------------------------------------------------------------- */
+@media (max-width: 500px) {
+    /* For small screen decices */
+    body {
+        font-size: 12px;
+    }
+
+    pre {
+        font-size: 12px;
+    }
+}
+
+
 body {
     font-family: Monospace, Courier;
     font-size: 16;
@@ -57,18 +69,42 @@ section {
     font-weight: bold;
 }
 
-@media (max-width: 500px) {
-    /* For small screen decices */
-    body {
-        font-size: 12px;
-    }
-
-    pre {
-        font-size: 12px;
-    }
+ul {
+    margin-top: -1ch;
+    /* background: red; */
 }
 
 
+/*----------------------------------------------------------------------------*/
+/* Game Page                                                                  */
+/*----------------------------------------------------------------------------*/
+.game_item {
+    text-align: center;
+    /* box-shadow: 0 0 0 1px #000; */
+    display: inline-block;
+    margin: 0px 0px 20px 0px;
+    padding: 0px 0px 0px;
+    /* width: 260px */
+}
+
+.game_name {
+    font-size: 120%;
+    overflow: hidden;
+    padding-left:  25px;
+    padding-right: 25px;
+    padding-bottom: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+.game_thumb {
+    border: 1px solid #000;
+    margin-bottom: 5px;
+    -ms-interpolation-mode: nearest-neighbor;
+    image-rendering: auto;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated
+}
 
 /*----------------------------------------------------------------------------*/
 /* Main Menu                                                                  */
@@ -85,69 +121,24 @@ section {
     display: inline-block;
     width: 100%;
 }
+
 .main_menu a {
     text-decoration: none;
     text-transform: uppercase;
 }
 
+
 /*----------------------------------------------------------------------------*/
 /* About                                                                      */
 /*----------------------------------------------------------------------------*/
-.about
-{
-    overflow: auto;
-}
-
-.about img {
+.about_img {
     border: solid 1px black;
     float:right;
     margin-left: 2ch;
     margin-bottom: 1ch;
     height: 200px;
 }
-.about p {
-    margin-top: 2ch;
-    margin-bottom: 1ch;
-    text-align: justify;
-    /* background: cyan; */
-}
-.about ul {
-    margin-top: -1ch;
-    /* background: red; */
-}
 
-/*----------------------------------------------------------------------------*/
-/* Contact                                                                    */
-/*----------------------------------------------------------------------------*/
-.contact
-{
-    overflow: auto;
-}
-
-.contact img {
-    border: solid 1px black;
-    float:right;
-    margin-left: 2ch;
-    margin-bottom: 1ch;
-    height: 200px;
-}
-.contact p {
-    margin-top: 2ch;
-    margin-bottom: 1ch;
-    text-align: justify;
-    /* background: cyan; */
-}
-.contact_links ul {
-    margin-top: -1ch;
-    text-transform: uppercase;
-    font-weight: bold;
-    /* background: red; */
-}
-.contact_links a {
-    color: black;
-    font-weight: bold;
-    text-transform: none;
-}
 
 /*----------------------------------------------------------------------------*/
 /* Resume                                                                     */
@@ -156,53 +147,6 @@ section {
     width: 100%;
     height: 1200px;
 }
-
-/*----------------------------------------------------------------------------*/
-/* Project / Games                                                            */
-/*----------------------------------------------------------------------------*/
-.project_section {
-    /* background-color: green */
-    margin-bottom: 2ch;
-    border-bottom: 1px solid hsla(37, 54%, 66%, 0.0);
-}
-
-.project_item {
-    width: 100%;
-    display: block;
-}
-
-.project_item div:first-of-type { /* the image */
-    display: block;
-    width:30%;
-    float: right;
-    /* background-color: red; */
-}
-.project_item div:last-of-type { /* The contents */
-    width:69%;
-    /* float: left; */
-    /* background-color: cyan; */
-}
-
-.project_item img {
-    display: block;
-    /* width: 100%; */
-    max-width:  100%;
-    max-height: 350px;
-    object-fit: contain;
-    float: right;
-    border: solid 1px black;
-}
-.project_item ul {
-    display: block;
-    /* float: left; */
-    margin-top: 0ch;
-    margin-bottom: 1ch;
-    padding-left: 3ch
-}
-.project_item li {
-    /* margin-top: -1.5ch; */
-}
-
 
 /*----------------------------------------------------------------------------*/
 /* Game Builds Page                                                           */
@@ -215,3 +159,5 @@ section {
     height: 500px;
     border: none;
 }
+
+
