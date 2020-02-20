@@ -70,7 +70,7 @@ section {
 }
 
 ul {
-    margin-top: -1ch;
+    margin-top: 0ch;
     /* background: red; */
 }
 
@@ -100,10 +100,6 @@ ul {
 .game_thumb {
     border: 1px solid #000;
     margin-bottom: 5px;
-    -ms-interpolation-mode: nearest-neighbor;
-    image-rendering: auto;
-    image-rendering: crisp-edges;
-    image-rendering: pixelated
 }
 
 /*----------------------------------------------------------------------------*/
