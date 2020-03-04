@@ -6,3 +6,4 @@ blog.html
 *.html
 !*.t.html
 !*.template.html
+deploy/
