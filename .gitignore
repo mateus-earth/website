@@ -7,3 +7,4 @@ blog.html
 !*.t.html
 !*.template.html
 deploy/
+_output/

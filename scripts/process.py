@@ -23,9 +23,9 @@
 import os;
 import os.path;
 import argparse;
-
+import sys;
 from pathlib import Path;
-
+from mcow_py_termcolor import termcolor;
 
 ##----------------------------------------------------------------------------##
 ## Helper Functions                                                           ##
@@ -33,11 +33,6 @@ from pathlib import Path;
 ##------------------------------------------------------------------------------
 def canonize_path(path):
     return os.path.abspath(os.path.normpath(os.path.expanduser(path)));
-
-##------------------------------------------------------------------------------
-def get_script_dir():
-    path = canonize_path(__file__);
-    return os.path.dirname(path);
 
 ##------------------------------------------------------------------------------
 def is_template_line(line):
@@ -49,41 +44,58 @@ def get_template_filename(line):
     line = line.replace("\n", "").strip(" ");
     return line.replace("{!", "").replace("}", "");
 
+##------------------------------------------------------------------------------
+def parse_args(args, flag):
+    try:
+        index = args.index(flag);
+    except:
+        log_fatal("Couldn't find flag - {0}", flag);
+    if(index + 1 >= len(args)):
+        log_fatal("Missing argument for flag - {0}", flag);
+
+    value = args[index + 1];
+    args.pop(index);
+    args.pop(index); ## Remove the flag and the value.
+
+    return value;
+
+##------------------------------------------------------------------------------
+class C:
+    def path    (s): return termcolor.colored(s, termcolor.MAGENTA);
+    def path_alt(s): return termcolor.colored(s, termcolor.BLUE);
+
+    def num(s): return termcolor.colored(s, termcolor.CYAN   );
+
 
 ##----------------------------------------------------------------------------##
 ## Entry Point                                                                ##
 ##----------------------------------------------------------------------------##
 ##------------------------------------------------------------------------------
 def main():
-    ##
-    ## Parse the command line arguments.
-    parser = argparse.ArgumentParser(description="");
-    parser.add_argument(
-        "--clear",
-        dest="should_clear",
-        action="store_true",
-        help="clear the gerenerated .html files"
+    args = sys.argv[1:]
+    project_root         = parse_args(args, "--project-root");
+    output_directory     = parse_args(args, "--output-dir"  );
+    filenames_to_process = args;
+
+    print("Project Root     : ({0})".format(C.path(project_root    )));
+    print("Output  Directory: ({0})".format(C.path(output_directory)));
+    print("Files to Process : ({0})".format(C.num (len(filenames_to_process))));
+
+    templates           = {};
+    templates_directory = canonize_path(
+        os.path.join(project_root, "html_templates")
     );
-    args = parser.parse_args()
 
-    script_dir = get_script_dir();
-    start_path = os.path.join(script_dir, "..");
-    extension  = "*.t.html";
-
-    templates = {};
-
-    for t_filename in Path(start_path).rglob(extension):
-        t_filename = str(t_filename);
+    for i, t_filename in enumerate(filenames_to_process):
         html_filename = t_filename.replace(".t.html", ".html");
+        t_fullpath    = canonize_path(os.path.join(project_root,     t_filename   ));
+        html_fullpath = canonize_path(os.path.join(output_directory, html_filename));
 
-        print("Processing: ({0})".format(t_filename));
-        if(args.should_clear):
-            os.remove(html_filename);
-            continue;
+        print("Processing: ({0})".format(C.path(t_fullpath)));
 
         ## Read the .t.html lines.
         t_lines = [];
-        with open(t_filename, "r") as rf:
+        with open(t_fullpath, "r") as rf:
             t_lines = rf.readlines();
 
         ## Parse each line of the .t.html file
@@ -101,7 +113,10 @@ def main():
             template_filename = get_template_filename(t_line);
             template_lines    = templates.get(template_filename);
             if(template_lines is None):
-                template_fullpath = os.path.join(script_dir, template_filename);
+                template_fullpath = os.path.join(
+                    templates_directory,
+                    template_filename
+                );
                 with open(template_fullpath, "r") as tf:
                     template_lines = tf.readlines();
                     templates[template_filename] = template_lines;
@@ -110,8 +125,10 @@ def main():
                 html_lines.append(template_line);
 
         ## Write the .html file ;D
-        print("Writting to ({0})".format(html_filename));
-        with open(html_filename, "w") as wf:
+        print("Writting to ({0})".format(C.path_alt(html_fullpath)));
+        dir_name = os.path.dirname(html_fullpath);
+        os.makedirs(dir_name, exist_ok=True);
+        with open(html_fullpath, "w") as wf:
             wf.writelines(html_lines);
 
 
