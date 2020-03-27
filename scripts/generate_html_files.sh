@@ -9,6 +9,7 @@ OUTPUT_DIR="${PROJECT_ROOT}/_output";
 
 mkdir -p "${OUTPUT_DIR}";
 
+##
 ## Process the files.
 cd "${PROJECT_ROOT}";
 find . -iname "*.t.html"                 \

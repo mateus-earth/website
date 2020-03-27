@@ -51,6 +51,7 @@ update_project_to_latest_tag()
 
     ## Go to the latest version.
     git checkout $TAG
+    git submodule update --init --recursive;
 
     ## Build.
     pw_func_log "$(pw_FC "$PROJECT")$(pw_FM "($TAG)") - $(pw_FB Building...)";
