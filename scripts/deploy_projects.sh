@@ -18,6 +18,7 @@ PROJECTS=" \
            \
     games/color_grid   \
     games/nuclear_rain \
+    games/simple_snake \
     games/kaboom       \
     games/ramit        \
 ";
