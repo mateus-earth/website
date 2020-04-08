@@ -7,3 +7,5 @@ blog.html
 !*.t.html
 !*.template.html
 deploy/
+_output/
+_project_repos/
