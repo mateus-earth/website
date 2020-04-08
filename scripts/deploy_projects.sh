@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
+##----------------------------------------------------------------------------##
+## Imports                                                                    ##
+##----------------------------------------------------------------------------##
 source /usr/local/src/stdmatt/shellscript_utils/main.sh
 
 
-
+##----------------------------------------------------------------------------##
+## Vars                                                                       ##
+##----------------------------------------------------------------------------##
 SCRIPT_DIR="$(pw_get_script_dir)";
 PROJECT_ROOT="$(pw_abspath "${SCRIPT_DIR}/..")";
 PROJ_REPOS_DIR="${PROJECT_ROOT}/_project_repos";
@@ -11,29 +16,33 @@ OUTPUT_DIR="${PROJECT_ROOT}/_output/deploy";
 BUILD_RULES_DIR="${SCRIPT_DIR}/build_rules";
 DEPLOY_RULES_DIR="${SCRIPT_DIR}/deploy_rules";
 
-    # demos/metaballs    \
-    # demos/simple_clock \
-    # demos/simple_tree  \
-    # demos/starfield    \
-    #        \
-    # games/color_grid   \
-    # games/nuclear_rain \
-    # games/simple_snake \
-    #        \
-    # games/old_old_old_games/kaboom \
-    # games/old_old_old_games/ramit  \
+
 PROJECTS=" \
+    demos/metaballs    \
+    demos/simple_clock \
+    demos/simple_tree  \
+    demos/starfield    \
+           \
+    games/color_grid   \
+    games/nuclear_rain \
+    games/simple_snake \
+           \
+    games/old_old_old_games/kaboom \
+    games/old_old_old_games/ramit  \
     games/old_old_old_games/taz    \
 ";
 
 
+##----------------------------------------------------------------------------##
+## Functions                                                                  ##
+##----------------------------------------------------------------------------##
+##------------------------------------------------------------------------------
 gitlab_url()
 {
     echo "https://gitlab.com/stdmatt-${1}";
 }
 
-
-
+##------------------------------------------------------------------------------
 deploy_project()
 {
     local PROJECT="$1";
@@ -97,6 +106,7 @@ deploy_project()
     pw_popd;
 }
 
+##------------------------------------------------------------------------------
 init_repository()
 {
     local PROJECT="$1";
@@ -107,6 +117,10 @@ init_repository()
     git clone "$(gitlab_url $PROJECT)" "$PROJECT_PATH";
 }
 
+
+##----------------------------------------------------------------------------##
+## Script                                                                     ##
+##----------------------------------------------------------------------------##
 mkdir -p "${PROJ_REPOS_DIR}";
 mkdir -p "${OUTPUT_DIR}";
 
