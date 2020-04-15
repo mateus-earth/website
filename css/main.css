@@ -31,9 +31,15 @@
 }
 
 
+@font-face {
+  font-family: 'JetBrainsMono-Regular';
+  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-    font-family: Monospace, Courier;
-    font-size: 16;
+    font-family: "JetBrainsMono-Regular", Monospace, Courier;
     max-width: 900px;
 
     /* For Desktop PC (see @media for Tablets/Phones) */

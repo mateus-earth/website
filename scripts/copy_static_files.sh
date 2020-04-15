@@ -13,5 +13,6 @@ mkdir -p "${OUTPUT_DIR}";
 ## Process the files.
 cd "${PROJECT_ROOT}";
 
-cp -vr ./img "${OUTPUT_DIR}";
-cp -vr ./css "${OUTPUT_DIR}";
+cp -vr ./img   "${OUTPUT_DIR}";
+cp -vr ./css   "${OUTPUT_DIR}";
+cp -vr ./fonts "${OUTPUT_DIR}";
