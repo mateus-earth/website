@@ -1,10 +1,11 @@
-# Intro
+
+## Intro
 
 I always have being a very big fan of the Nintendo's Game Boy system.
-When I was young me and my brother got one for christhimas from dad
+When I was young me and my brother got one for christmas from dad
 and it was more the awesome ;D
 
-I can almost remember as if was today, we went for a neibour town,
+I can almost remember as if was today, we went for a neighbor town,
 close to our city - because our city didn't have big stores that
 sell those kinda things back then - and got a **clear purple**
 Game Boy Color with **Pokemon Gold**.
@@ -15,8 +16,8 @@ Mario Tennis.
 
 ## El Jamon Volador
 
-When I was in Portugal, me and my friend [monty]() atteneded a retro
-conference in the lovely city of Lourinhã, when I had the opportunity
+When I was in Portugal, me and my friend [monty](https://montyontherun.itch.io/)
+and Livia attended a retro conference in the lovely city of Lourinhã, when I had the opportunity
 to buy an Game Boy Advanced SP for a very, very good price.
 
 Back then I was excited with the device again and decided to start
@@ -26,7 +27,7 @@ way to get the speed on the development and decided to create a
 small flappy bird clone!
 
 This is the way that
-[El Jamon Volador](https://stdmatt.com/https://stdmatt.com/games/el_jamon_volador.html)
+[El Jamon Volador](https://stdmatt.com/games/el_jamon_volador.html)
 was born.
 
 While developing it was really nice, the game is really, really simple.
@@ -63,7 +64,7 @@ free assets for some of the content.
 Well for now I'm planning to make 2 game with the _"specs"_ that I described
 above - I'll try to make a post just about it later - and after I finished
 them stop for a while to write down and document about what I learned in the
-process - So other people can befenit from it as well.
+process - So other people can benefit from it as well.
 
 After that I really don't quite know. I know that I want to continue
 creating games for this system - but there's a lot of other ones that
