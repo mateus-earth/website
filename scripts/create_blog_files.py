@@ -119,9 +119,11 @@ def main():
         html_text += "<b>" + year + "<b>" + "\n";
         html_text += "<ul>" + "\n";
 
-        for month in MONTHS:
+        for month in reversed(MONTHS):
             if(month not in blog_posts[year].keys()):
                 continue;
+
+            html_text += "<b>" + month.capitalize() + "<b>" + "<br>"
 
             ## XXX(stdmatt): Make a nice way to reverse the keys..
             days = [];
@@ -139,6 +141,8 @@ def main():
                         title, filename
                     );
 
+            html_text += "<br>"
+        html_text = html_text[:-4]; ## Remove the last <br>
         html_text += "</ul>\n";
 
     final_text = mcow_join_with_newlines(
