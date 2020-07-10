@@ -2,12 +2,13 @@
 {!menu.template.html}
 <title>Blog</title>
 <hr>
-<b>2020<b>
-<ul>
-<b>Jul<b><br><li><a href="blog/08-Jul-2020-Game-Boy-Software-[part-1].html">Jul 08, 2020 - Game Boy Software [part 1]</a></li>
-<li><a href="blog/01-Jul-2020-Saudade.html">Jul 01, 2020 - Saudade</a></li>
-<br><b>Jun<b><br><li><a href="blog/29-Jun-2020-I-Bought-Game-Boys.html">Jun 29, 2020 - I Bought Game Boys</a></li>
-<li><a href="blog/26-Jun-2020-Game-Boy-Adventures.html">Jun 26, 2020 - Game Boy Adventures</a></li>
+<script src="js/blog.js" type="text/javascript"></script>
+<script src="./blog_data.js" type="text/javascript"></script>
+
+<div class="blog_container">
+    <div id="left_col"  class="blog_flex-item"></div>
+    <div id="right_col" class="blog_fixed"></div>
+</div>
 </ul>
 
 {!page_end.template.html}

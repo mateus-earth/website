@@ -2,35 +2,49 @@
 
 import os;
 import os.path;
-##from mcow_core import *;
+##from pw_core import *;
+import markdown;
+import json;
+import datetime;
 
-
-def mcow_canonize_path(*args):
+def pw_canonize_path(*args):
     joined = os.path.join(*args);
     return os.path.abspath(os.path.expanduser(joined));
 
-def mcow_get_script_dir():
-    return os.path.dirname(mcow_canonize_path(".", __file__));
+def pw_get_script_dir():
+    return os.path.dirname(pw_canonize_path(".", __file__));
 
-def mcow_read_all_file(path):
+
+def pw_read_all_lines(path):
     with open(path, "r") as f:
-        return "".join(f.readlines());
+        return f.readlines()
 
-def mcow_write_all_file(path, text):
+def pw_read_all_file(path):
+    "".join(pw_read_all_lines(path));
+
+def pw_write_all_file(path, text):
     with open(path, "w") as f:
         f.write(text);
 
-def mcow_join_lines(sep, *lines):
+def pw_join_lines(sep, *lines):
     return sep.join(lines);
 
-def mcow_join_with_newlines(*lines):
+def pw_join_with_newlines(*lines):
     return "\n".join(lines);
 
+def pw_is_empty(o):
+    return len(o) == 0;
 
-SCRIPT_DIR         = mcow_get_script_dir();
-ROOT_DIR           = mcow_canonize_path(SCRIPT_DIR, "..");
-BLOG_DIR           = mcow_canonize_path(SCRIPT_DIR, "../blog");
-HTML_TEMPLATES_DIR = mcow_canonize_path(SCRIPT_DIR, "../html_templates");
+def pw_str_remove(s, *args):
+    for a in args:
+        s = s.replace(a, "");
+    return s;
+
+SCRIPT_DIR         = pw_get_script_dir();
+ROOT_DIR           = pw_canonize_path(SCRIPT_DIR, "..");
+BLOG_DIR           = pw_canonize_path(SCRIPT_DIR, "../blog");
+HTML_TEMPLATES_DIR = pw_canonize_path(SCRIPT_DIR, "../html_templates");
+BLOG_DATA_JS_PATH  = pw_canonize_path(ROOT_DIR, "_output", "blog_data.js")
 
 MONTHS = [
     "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"
@@ -39,7 +53,48 @@ MONTHS = [
 HEADER_TEMPLATE = "{!page_start.template.html}\n{!menu.template.html}";
 FOOTER_TEMPLATE = "{!page_end.template.html}"
 
-blog_posts = {};
+
+blog_posts = [];
+
+def parse_tags(markdown_text, data):
+    tags = [];
+    for line in markdown_text:
+        line = line.replace("\n", "").strip(" ");
+        if(pw_is_empty(line)):
+            continue;
+
+        is_comment = line.startswith("<!--") and line.endswith("-->");
+        if(not is_comment):
+            return tags;
+
+        line = pw_str_remove(line, "<!--", "-->").strip(" ");
+
+        is_tag = line.startswith("tags:");
+        if(not is_tag):
+            continue;
+
+        line = pw_str_remove(line, "tags:").strip(" ");
+        return [l.strip(" ") for l in line.split(",")];
+
+def process_markdown(markdown_text, data):
+    title_text = "<h1>" + data["title"] + "</h2>";
+    date_text  = "{0} {1}, {2}".format(
+        data["month"].capitalize(),
+        data["day"  ],
+        data["year" ]
+    );
+
+    text       =  markdown.markdown("\n".join(markdown_text));
+    final_text = pw_join_with_newlines(
+        HEADER_TEMPLATE,
+        title_text,
+        date_text,
+        text,
+        FOOTER_TEMPLATE
+    );
+    return final_text
+
+
 
 def main():
     ##
@@ -48,7 +103,7 @@ def main():
         if(template.endswith(".md")):
             continue;
 
-        os.remove(mcow_canonize_path(BLOG_DIR, template));
+        os.remove(pw_canonize_path(BLOG_DIR, template));
 
     ##
     ## Process the Blog Entries
@@ -57,103 +112,57 @@ def main():
         if(not md_entry.endswith(".md")):
             continue;
 
-        md_entry_filename = os.path.join(BLOG_DIR, md_entry);
-        html_filename     = md_entry_filename.replace(".md", ".html");
-        template_filename = md_entry_filename.replace(".md", ".t.html");
-
-        md_entry_name   = md_entry.replace(".md", "");
-        components      = md_entry_name.split("-");
-        date_components = components[0:3];
-        name_components = components[3:]
-
-        day   = date_components[0];
-        month = date_components[1].lower();
-        year  = date_components[2];
-
-        entry_title = " ".join(name_components);
-
-        if(year not in blog_posts.keys()):
-            blog_posts[year] = {};
-
-        if(month not in blog_posts[year].keys()):
-            blog_posts[year][month] = {};
-
-        if(day not in blog_posts[year][month].keys()):
-            blog_posts[year][month][day] = [];
-
-        blog_posts[year][month][day].append({
-            "title":    entry_title,
-            "filename": os.path.join("blog", os.path.basename(html_filename))
-        });
+        data = {};
 
         ##
-        ## Process the markdown
-        ##   Write into the template filename that we gonna read
-        ##   again to insert the title, doing that so we don't need
-        ##   to create an extra file that will needed to be cleaned
-        ##   later.
-        os.system("markdown {0} > {1}".format(
-            md_entry_filename,
-            template_filename
-        ));
+        ## Filenames.
+        markdown_filename = os.path.join(BLOG_DIR, md_entry);
+        html_filename     = markdown_filename.replace(".md", ".html");
+        template_filename = markdown_filename.replace(".md", ".t.html");
 
-        blog_text  = mcow_read_all_file(template_filename);
-        title_text = "<h1>" + entry_title + "</h2>";
-        date_text  = "{0} {1}, {2}".format(month.capitalize(), day, year);
+        ##
+        ## Get the info from the markdown filename itself.
+        ##   So 10-Jul-2020-my-awesome-post.md
+        ##   10 (day) 7 (month) 2020 (year)
+        ##   my awesome post (title)
+        ##   blog/10-Jul-2020-my-awesome-post.html (url)
+        md_name            = md_entry.replace(".md", "");
+        md_name_components = md_name.split("-");
+        name_components    = md_name_components[3:]
+        date_components    = md_name_components[0:3];
 
-        final_text = mcow_join_with_newlines(
-            HEADER_TEMPLATE,
-            title_text,
-            date_text,
-            blog_text,
-            FOOTER_TEMPLATE
-        );
+        data["day"  ]     = date_components[0];
+        data["month"]     = date_components[1];
+        data["year" ]     = date_components[2];
+        data["timestamp"] = datetime.datetime(
+            int(data["year"]),
+            MONTHS.index(data["month"].lower()),
+            int(data["day"])
+        ).timestamp();
 
-        mcow_write_all_file(template_filename, final_text);
+        markdown_text = pw_read_all_lines(markdown_filename);
+
+        ##
+        ## Create the post data.
+        data["title"] = " ".join(name_components);
+        data["url"  ] = os.path.join("blog", os.path.basename(html_filename));
+        data["tags" ] = parse_tags(markdown_text, data);
+        blog_posts.append(data);
+
+        ##
+        ## Write the .t.html template file
+        html_text = process_markdown(markdown_text, data);
+        pw_write_all_file(template_filename, html_text);
 
 
-    ##
-    ## Create the Blog index page.
-    html_text = "";
-    for year in sorted(blog_posts.keys()):
-        html_text += "<b>" + year + "<b>" + "\n";
-        html_text += "<ul>" + "\n";
-
-        for month in reversed(MONTHS):
-            if(month not in blog_posts[year].keys()):
-                continue;
-
-            html_text += "<b>" + month.capitalize() + "<b>" + "<br>"
-
-            ## XXX(stdmatt): Make a nice way to reverse the keys..
-            days = [];
-            for d in blog_posts[year][month].keys():
-                days.append(d);
-            days.sort();
-
-            for day in reversed(days):
-                for entry in blog_posts[year][month][day]:
-                    title    = entry["title"];
-                    filename = entry["filename"];
-
-                    html_text += "<li><a href=\"{4}\">{0} {1}, {2} - {3}</a></li>\n".format(
-                        month.capitalize(), day, year,
-                        title, filename
-                    );
-
-            html_text += "<br>"
-        html_text = html_text[:-4]; ## Remove the last <br>
-        html_text += "</ul>\n";
-
-    final_text = mcow_join_with_newlines(
-        HEADER_TEMPLATE,
-        "<title>Blog</title>\n<hr>",
-        html_text,
-        FOOTER_TEMPLATE
+    ## Write the json data for the blog.js
+    out_text = "var BLOG_ITEMS_FROM_PY_SCRIPT = JSON.parse('\{0}\')".format(
+        json.dumps(blog_posts).replace("\"", "\\\"").replace("'", "\\'")
     );
-
-    blog_index_filename = mcow_canonize_path(ROOT_DIR, "blog.t.html");
-    mcow_write_all_file(blog_index_filename, final_text);
+    pw_write_all_file(
+        BLOG_DATA_JS_PATH,
+        out_text
+    );
 
 
 main();

@@ -1,3 +1,4 @@
+<!-- tags: game-boy, dev, retro-programming -->
 
 ## Intro
 

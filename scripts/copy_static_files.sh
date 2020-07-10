@@ -16,3 +16,4 @@ cd "${PROJECT_ROOT}";
 cp -vr ./img   "${OUTPUT_DIR}";
 cp -vr ./css   "${OUTPUT_DIR}";
 cp -vr ./fonts "${OUTPUT_DIR}";
+cp -vr ./js    "${OUTPUT_DIR}";
