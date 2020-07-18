@@ -20,7 +20,7 @@ def pw_read_all_lines(path):
         return f.readlines()
 
 def pw_read_all_file(path):
-    "".join(pw_read_all_lines(path));
+    return "".join(pw_read_all_lines(path));
 
 def pw_write_all_file(path, text):
     with open(path, "w") as f:
@@ -76,7 +76,7 @@ def parse_tags(markdown_text, data):
         line = pw_str_remove(line, "tags:").strip(" ");
         return [l.strip(" ") for l in line.split(",")];
 
-def process_markdown(markdown_text, data):
+def process_markdown(data, markdown_filename, template_filename):
     title_text = "<h1>" + data["title"] + "</h2>";
     date_text  = "{0} {1}, {2}".format(
         data["month"].capitalize(),
@@ -84,7 +84,8 @@ def process_markdown(markdown_text, data):
         data["year" ]
     );
 
-    text       =  markdown.markdown("\n".join(markdown_text));
+    os.system("markdown {0} > {1}".format(markdown_filename, template_filename));
+    text = pw_read_all_file(template_filename)
     final_text = pw_join_with_newlines(
         HEADER_TEMPLATE,
         title_text,
@@ -92,9 +93,7 @@ def process_markdown(markdown_text, data):
         text,
         FOOTER_TEMPLATE
     );
-    return final_text
-
-
+    pw_write_all_file(template_filename, final_text);
 
 def main():
     ##
@@ -151,8 +150,7 @@ def main():
 
         ##
         ## Write the .t.html template file
-        html_text = process_markdown(markdown_text, data);
-        pw_write_all_file(template_filename, html_text);
+        process_markdown(data, markdown_filename, template_filename);
 
 
     ## Write the json data for the blog.js
