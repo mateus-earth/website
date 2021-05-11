@@ -25,7 +25,6 @@ import os.path;
 import argparse;
 import sys;
 from pathlib import Path;
-from mcow_py_termcolor import termcolor;
 
 
 ##----------------------------------------------------------------------------##
@@ -62,10 +61,9 @@ def parse_args(args, flag):
 
 ##------------------------------------------------------------------------------
 class C:
-    def path    (s): return termcolor.colored(s, termcolor.MAGENTA);
-    def path_alt(s): return termcolor.colored(s, termcolor.BLUE);
-
-    def num(s): return termcolor.colored(s, termcolor.CYAN   );
+    def path    (s): return s;
+    def path_alt(s): return s;
+    def num     (s): return s;
 
 
 ##----------------------------------------------------------------------------##

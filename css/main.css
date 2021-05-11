@@ -57,7 +57,7 @@ hr {
 a {
     color: black;
     font-weight: bold;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 img {
