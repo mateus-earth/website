@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
-source /usr/local/src/stdmatt/shellscript_utils/main.sh
+source "$HOME/.ark/ark_shlib/main.sh";
 
-
-SCRIPT_DIR="$(pw_get_script_dir)";
-PROJECT_ROOT="$(pw_abspath "${SCRIPT_DIR}/..")";
+##
+## Vars
+##
+SCRIPT_DIR="$(ark_get_script_dir)";
+PROJECT_ROOT="$(ark_get_abspath "${SCRIPT_DIR}/..")";
 OUTPUT_DIR="${PROJECT_ROOT}/_output";
-
-mkdir -p "${OUTPUT_DIR}";
-
-${SCRIPT_DIR}/create_blog_files.py
 
 
 ##
-## Process the files.
+## Script
+##
+echo "Generating html files...";
+
+mkdir -p "${OUTPUT_DIR}";
+
 cd "${PROJECT_ROOT}";
-find . -iname "*.t.html"                 \
-    | xargs "${SCRIPT_DIR}/process.py"   \
-        --project-root "${PROJECT_ROOT}" \
+find . -iname "*.t.html"                        \
+    | xargs "${SCRIPT_DIR}/process_t_file.py"   \
+        --project-root "${PROJECT_ROOT}"        \
         --output-dir   "${OUTPUT_DIR}";
