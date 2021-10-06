@@ -6,7 +6,7 @@
 ##                   \__ \ || (_| | | | | | | (_| | |_| |_                    ##
 ##                   |___/\__\__,_|_| |_| |_|\__,_|\__|\__|                   ##
 ##                                                                            ##
-##  File      : process.py                                                    ##
+##  File      : process_t_file.py                                             ##
 ##  Project   : stdmatt_blog                                                  ##
 ##  Date      : Jan 21, 2020                                                  ##
 ##  License   : GPLv3                                                         ##
@@ -14,8 +14,16 @@
 ##  Copyright : stdmatt 2020                                                  ##
 ##                                                                            ##
 ##  Description :                                                             ##
+##     The website is written in a template file, allowing us to make         ##
+##     some things automatically - like adding headers/footers, common css,   ##
+##     and such things.                                                       ##
 ##                                                                            ##
+##     This files are named -> something.t.html and they need to be           ##
+##     processed by this script to geneate the final .html that will          ##
+##     be displayed to the user.                                              ##
 ##---------------------------------------------------------------------------~##
+
+## @todo(stdmatt): Add option to make output quiet - 10/6/2021, 4:48:30 AM
 
 ##----------------------------------------------------------------------------##
 ## Imports                                                                    ##
