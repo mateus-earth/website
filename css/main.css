@@ -14,138 +14,214 @@
 /*  Description :                                                             */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
-
-/* -------------------------------------------------------------------------- */
-/* @todo(stdmatt): Thanks to fabien about the css..                           */
-/*                                                                            */
-/* -------------------------------------------------------------------------- */
-@media (max-width: 500px) {
-    /* For small screen decices */
-    body {
-        font-size: 12px;
-    }
-
-    pre {
-        font-size: 12px;
-    }
+@font-face {
+  font-family: "JetBrainsMono-Regular";
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 
-
 @font-face {
-  font-family: 'JetBrainsMono-Regular';
-  src: url('/fonts/JetBrainsMono-Regular.woff2') format('woff2');
+  font-family: "3D";
+  src: url("/fonts/KidpixiesRegular-p0Z1.ttf") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 body {
-    font-family: "JetBrainsMono-Regular", Monospace, Courier;
+    height:    100vh;
     max-width: 900px;
+    margin:    0;
 
-    /* For Desktop PC (see @media for Tablets/Phones) */
-    padding-left: 2ch;
-    padding-right: 3ch;
-    margin: 0 auto;
-    background: #fffde3;
-    color: #24292B;
-}
+    font-family: "JetBrainsMono-Regular", Monospace, Courier;
 
-hr {
-    border-top: 1px solid #D7B378;
+    background: #20283D;
+    color:      #91B5CA;
 }
 
 a {
-    color: black;
-    font-weight: bold;
-    /* text-transform: uppercase; */
-}
-
-img {
-    border: none;
-}
-
-title {
-    text-transform: uppercase;
-    font-weight: bold;
-    display: inline;
-}
-
-section {
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-ul {
-    margin-top: 0ch;
-    /* background: red; */
-}
-
-
-/*----------------------------------------------------------------------------*/
-/* Game Page                                                                  */
-/*----------------------------------------------------------------------------*/
-.game_item {
-    text-align: center;
-    /* box-shadow: 0 0 0 1px #000; */
-    display: inline-block;
-    margin: 0px 0px 20px 0px;
-    padding: 0px 0px 0px;
-    /* width: 260px */
-}
-
-.game_name {
-    /* font-size: 120%; */
-    overflow: hidden;
-    padding-left:  25px;
-    padding-right: 25px;
-    padding-bottom: 5px;
-    text-overflow: ellipsis;
-    white-space: nowrap
-}
-
-.game_thumb {
-    border: 1px solid #000;
-    margin-bottom: 5px;
-}
-
-/*----------------------------------------------------------------------------*/
-/* Main Menu                                                                  */
-/*----------------------------------------------------------------------------*/
-.main_menu {
-    display: inline-block;
-    vertical-align:middle;
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-
-.main_menu div {
-    text-align: justify;
-    display: inline-block;
-    width: 100%;
-}
-
-.main_menu a {
     text-decoration: none;
+    font-weight:     bold;
+    color:         #B560F9
+}
+
+/* Header */
+header {
+    display: block;
+
+    text-align:      center;
+    text-decoration: underline;
+
+    font-size: 4ch;
+    font-family: "3D", Monospace, Courier;
+
+    padding-bottom: 5px;
+}
+
+
+/* Nav */
+nav {
+    display: block;
+    text-align: center;
+    justify-content: space-between;
+    color: #4E6577;
+}
+
+nav a {
+    color: #8FB6C9;
+}
+
+.nav-out {
+    display:    block;
+    width:      100%;
+    text-align: center;
+    margin-bottom: 2ch;
+
+    /* border-style: solid; */
+    /* background-color: #FF0000; */
+}
+
+.nav-container {
+    display: inline-block;
+
+    padding-left:   2ch;
+    padding-right:  2ch;
+    padding-top:    1ch;
+    padding-bottom: 1ch;
+
     text-transform: uppercase;
+
+    border-style: none none dotted;
+    border-width: medium;
+    border-color: #B560F9;
+
+    /* background-color: #FF00FF; */
 }
 
+/* Images */
+.img-profile {
+    display: block;
 
-/*----------------------------------------------------------------------------*/
-/* About                                                                      */
-/*----------------------------------------------------------------------------*/
-.about_img {
-    border: solid 1px black;
-    float:right;
-    margin-left: 2ch;
+    width:     100%;
+    max-width: 250px;
+
+    margin-left:   auto;
+    margin-right:  auto;
+    margin-top:    1ch;
     margin-bottom: 1ch;
-    height: 200px;
+
+    border-radius: 50%;
 }
 
+/* About */
+.about-section {
+    display: block;
+    margin: 1ch 1ch 2ch 1ch;
+    text-align: center;
 
-/*----------------------------------------------------------------------------*/
-/* Resume                                                                     */
-/*----------------------------------------------------------------------------*/
-iframe {
-    width: 100%;
-    height: 1200px;
+    /* border-style: solid; */
+    /* border-width: 1px; */
+}
+.about-section ul {
+    list-style-type: none;
+}
+
+/* Games */
+.games-section {
+    margin: 0;
+    padding: 0;
+
+    /* background-color: tomato; */
+}
+
+.game-section-title {
+    display: block;
+
+    font-size: 3ch;
+    text-transform: uppercase;
+
+    text-align: center;
+
+    /* border-style: none none solid; */
+    /* border-width: 1px; */
+    /* border-color: #B560F9; */
+    /* background-color: #B560F9; */
+}
+
+.game-section-title::before {
+    content: "•[";
+    color: #4E6577;
+}
+.game-section-title::after {
+    content: "]•";
+    color: #4E6577;
+}
+.game-section-subtitle{
+    display: block;
+
+    font-size: 2ch;
+    text-transform: uppercase;
+
+    text-align: center;
+
+    /* border-style: none none solid; */
+    /* border-width: 1px; */
+    /* border-color: #B560F9; */
+    /* background-color: #B560F9; */
+}
+/* Game Item Container */
+.game-item-container {
+    display:         flex;
+    flex-wrap:       wrap;
+    justify-content: center;
+
+    /* background-color: turquoise; */
+
+    margin-top:    2ch;
+    margin-bottom: 2ch;
+}
+
+/* Game Item */
+.game-item {
+    display: block;
+
+    text-align: center;
+
+    margin-left:   2ch;
+    margin-right:  2ch;
+    margin-top:    0;
+    margin-bottom: 1ch;
+}
+
+/* @todo(stdmatt): Investigate how we can ensure circles... */
+.game-item-title {
+    text-transform: uppercase;
+    color:        #91B5CA;
+}
+.game-item-title::before {
+    content: "• ";
+    color: #B560F9;
+}
+.game-item-title::after {
+    content: " •";
+    color: #B560F9;
+}
+
+.game-item-thumb {
+    display: block;
+
+    height: 150px;
+    width:  150px;
+
+    margin-left:   auto;
+    margin-right:  auto;
+    margin-top:    0ch;
+    margin-bottom: 1ch;
+
+    border-radius: 50%;
+    object-fit:    fill;
+
+    border-style: solid;
+    border-width: 2px;
+    border-color: #91B5CA;
 }
