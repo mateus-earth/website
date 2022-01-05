@@ -1,0 +1,52 @@
+.thumb-container {
+    display:    block;
+    text-align: center;
+
+    background-color: tomato;
+}
+
+.thumb-container img {
+    display: block;
+
+    width:     100%;
+    max-width: fit-content;
+
+    margin-left:  auto;
+    margin-right: auto;
+}
+
+.thumb-container-title {
+    font-style:  "Font_Bold", Monospace, Courier;
+    font-weight: bold;
+    font-size:   2ch;
+
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.thumb-container-title::before {
+    content: "•";
+}
+
+.thumb-container-title::after {
+    content: "•";
+}
+
+.icon-container {
+    display: inline-block;
+    text-align: center;
+    justify-content: center;
+
+    background-color: rgb(202, 0, 202);
+}
+
+.icon-container-img {
+    display: block;
+    height: 48px;
+    width: 48px;
+    /* max-height: fit-content;
+    max-width: fit-content; */
+    margin-left: auto;
+    margin-right: auto;
+    background-color: teal;
+}
