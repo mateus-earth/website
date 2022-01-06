@@ -1,0 +1,290 @@
+/*----------------------------------------------------------------------------*/
+/*                       __      __                  __   __                  */
+/*               .-----.|  |_.--|  |.--------.---.-.|  |_|  |_                */
+/*               |__ --||   _|  _  ||        |  _  ||   _|   _|               */
+/*               |_____||____|_____||__|__|__|___._||____|____|               */
+/*                                                                            */
+/*  File      : main.css                                                      */
+/*  Project   : stdmatt_blog                                                  */
+/*  Date      : Nov 06, 2018                                                  */
+/*  License   : GPLv3                                                         */
+/*  Author    : stdmatt <stdmatt@pixelwizards.io>                             */
+/*  Copyright : stdmatt - 2018 - 2022                                         */
+/*                                                                            */
+/*  Description :                                                             */
+/*                                                                            */
+/*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*/
+/* Fonts                                                                      */
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+@font-face {
+  font-family: "Font_Regular";
+  src: url("/fonts/AlmaMono-Regular.otf") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*----------------------------------------------------------------------------*/
+@font-face {
+  font-family: "Font_Bold";
+  src: url("/fonts/AlmaMono-Bold.otf") format("woff2");
+  font-weight: bold;
+  font-style:normal;
+}
+
+/*----------------------------------------------------------------------------*/
+@font-face {
+  font-family: "3D";
+  src: url("/fonts/KidpixiesRegular-p0Z1.ttf") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* :root {
+    --background:    #0f0f1b;
+    --accent_dark:   #565a75;
+    --accent_medium: #c6b7be;
+    --accent_bright: #fafbf6;
+} */
+
+:root {
+    --background:    #20283D;
+    --accent_dark:   #4E6476;
+    --accent_medium: #92B4CA;
+    --accent_bright: #B35EFB;
+
+
+    -spacing-double: 2.0ch;
+    -spacing-full:   1.0ch;
+    -spacing-half:   0.5ch;
+
+    -font-size-giant:   2.0ch;
+    -font-size-big:     1.5ch;
+    -font-size-normal:  1.5ch;
+
+    -font-size-normal:  1.5ch;
+    -font-size-normal:  1.5ch;
+
+    /* --debug-border-style: solid;
+    --debug-border-width: 1px; */
+}
+
+/*----------------------------------------------------------------------------*/
+/* Tags                                                                       */
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+body {
+    height:    100vh;
+    max-width: 900px;
+
+    font-family: "Font_Regular", Monospace, Courier;
+
+    background-color: var(--background);
+    color:            var(--accent_medium);
+
+    margin-left:  1.5ch;
+    margin-right: 1.5ch;
+}
+
+a {
+    text-decoration: none;
+    font-weight:     bold;
+    color:           var(--accent_dark)
+}
+
+
+/*----------------------------------------------------------------------------*/
+/* General                                                                    */
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+.circle-image {
+    object-fit:    fill;
+
+    margin-top:    0px;
+    margin-bottom: 0px;
+
+    border-radius: 50%;
+    border-style:  solid;
+    border-width:  2px;
+    border-color:  var(--accent_medium);
+}
+
+/*----------------------------------------------------------------------------*/
+/* Navigation Bar                                                             */
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+header {
+    display: block;
+
+    text-align:      center;
+    text-decoration: underline;
+
+    font-family: "Font_Bold", Monospace, Courier;
+    font-size:   2ch;
+
+    border-style: var(--debug-border-style);
+    border-width: var(--debug-border-width);
+    /* background-color:darkblue; */
+}
+
+/*----------------------------------------------------------------------------*/
+nav {
+    display:         block;
+    text-align:      center;
+    justify-content: space-between;
+
+    border-style: var(--debug-border-style);
+    border-width: var(--debug-border-width);
+}
+
+.nav-out {
+    display:       block;
+    width:         100%;
+    text-align:    center;
+
+    border-style: var(--debug-border-style);
+    border-width: var(--debug-border-width);
+    /* background-color: #FF0000; */
+}
+
+.nav-container {
+    display: inline-block;
+
+    text-transform: uppercase;
+
+    border-style: none none dotted;
+    border-width: medium;
+
+    /* background-color:lightsalmon; */
+}
+
+/* Section */
+/*----------------------------------------------------------------------------*/
+.section-title {
+    display: block;
+
+    font-style:  "Font_Bold", Monospace, Courier;
+    font-weight: bold;
+    font-size:   2.5ch;
+
+    text-transform: uppercase;
+    text-align:     center;
+
+    color: var(--accent_medium);
+
+    border-style: var(--debug-border-style);
+    border-width: var(--debug-border-width);
+
+    /* background-color: darkcyan; */
+}
+
+.section-title::before {
+    content: "•[";
+}
+
+.section-title::after {
+    content: "]•";
+}
+
+/*----------------------------------------------------------------------------*/
+.section-subtitle {
+    display: block;
+
+    font-style:  "Font_Bold", Monospace, Courier;
+    font-weight: bold;
+    font-size:   2ch;
+
+    text-transform: uppercase;
+    text-align:     center;
+
+    color: var(--accent_dark);
+
+    border-style: var(--debug-border-style);
+    border-width: var(--debug-border-width);
+    /* background-color:darkorange; */
+}
+
+/*----------------------------------------------------------------------------*/
+.section-text-content {
+    display:    block;
+    text-align: center;
+
+    /* background-color:darkmagenta; */
+}
+
+.section-text-content ul {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:  0px;
+    margin-bottom: 0px;
+    padding: 0px;
+    /* max-width: fit-content; */
+    /* background-color: #B560F9; */
+}
+
+.section-text-content li{
+    display: block;
+    /* max-width:max-content; */
+    /* background-color: tomato; */
+}
+
+.section-text-content li::before{
+    content: "•";
+}
+
+
+/*----------------------------------------------------------------------------*/
+/* About                                                                      */
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+
+/*----------------------------------------------------------------------------*/
+/* Games                                                                      */
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+.games-section {
+    /* background-color: tomato; */
+}
+
+/* Game Item Container */
+
+/*----------------------------------------------------------------------------*/
+/* Game Item */
+
+
+/*----------------------------------------------------------------------------*/
+/* @todo(stdmatt): Investigate how we can ensure circles... */
+.game-item-title::before {
+    content: "• ";
+}
+
+.game-item-title::after {
+    content: " •";
+}
+
+/*----------------------------------------------------------------------------*/
+.game-item-subtitle {
+    display: block;
+    text-transform: uppercase;
+
+    font-size:   1ch;
+    font-weight: bolder;
+
+    border-style: var(--debug-border-style);
+    border-width: var(--debug-border-width);
+}
+
+/*----------------------------------------------------------------------------*/
+.game-item-thumb {
+}
+
+/*----------------------------------------------------------------------------*/
+/* Contact                                                                    */
+/*----------------------------------------------------------------------------*/
+.contact-item {
+    display:    block;
+    text-align: center;
+    /* background-color: #FF00FF; */
+}
