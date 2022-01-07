@@ -50,23 +50,33 @@
 } */
 
 :root {
-    --color_background: black;
-    --color_text: red;
-    --color_bold_text: darkred;
-    --color_link: green;
-    --color_link_border: darkgreen;
+    --color_background:  #FDF6E3;
+    --color_text:        #657B83;
+    --color_bold_text:   #586E75;
+    --color_link:        #CB4B16;
+    /* --color_link:        var(--color_bold_text); */
+    /* --color_link_border: #CB4B16; */
+    --color_link_border: var(--color_bold_text);
 
-    --color_nav_header:blue;
-    --color_nav_links: magenta;
-    --color_nav_separator: cyan;
+    --color_nav_header:    var(--color_link);
+    --color_nav_links:     var(--color_bold_link);
+    --color_nav_separator: #6c70c485;
 
-    --color_subtitle: yellow;
-    --color_subtitle_border: brown;
+    --color_subtitle:        #6C71C4;
+    --color_subtitle_border: #6c70c485;
 
-    --color_img_border: orange;
+    --color_img_border: #93A1A1;
 
-    --color_game_title: aqua;
-    --color_game_subtitle: magenta;
+    --color_game_title:    var(--color_bold_text);
+    --color_game_subtitle: #6C71C4;
+        /* #0d2b45 */
+        /* #203c56 */
+        /* #544e68 */
+        /* #8d697a */
+        /* #d08159 */
+        /* #ffaa5e */
+        /* #ffd4a3 */
+        /* #ffecd6 */
 
     --font_bold:    "Font_Bold",    monospace;
     --font_regular: "Font_Regular", monospace;
@@ -183,7 +193,8 @@ li::before {
 
 /*----------------------------------------------------------------------------*/
 .nav-out nav :nth-child(3n - 2)::before {
-    content: var(--bullet);
+    content:      var(--bullet);
+    color:        var(--color_link);
     margin-right: 0.5rem;
 }
 
@@ -192,12 +203,14 @@ li::before {
 }
 
 .nav-out nav :nth-child(3n - 1)::before {
-    content: var(--bullet);
+    content:      var(--bullet);
+    color:        var(--color_link);
     margin-right: 0.5rem;;
 }
 
 .nav-out nav :nth-child(3n - 1)::after {
-    content: var(--bullet);
+    content:      var(--bullet);
+    color:        var(--color_link);
     margin-left: 0.5rem;
 }
 
@@ -206,7 +219,8 @@ li::before {
 }
 
 .nav-out nav :nth-child(3n - 0)::after {
-    content: var(--bullet);
+    content:      var(--bullet);
+    color:        var(--color_link);
     margin-left: 0.5rem;
 }
 
@@ -305,8 +319,8 @@ img.about {
 
 /*----------------------------------------------------------------------------*/
 .game-item img {
-    height: 200px;
-    width:  200px;
+    height: 160px;
+    width:  160px;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -324,12 +338,14 @@ img.about {
 }
 
 .game-item h3::before {
-    content:       var(--bullet);
+    content:      var(--bullet);
+    color:        var(--color_link);
     padding-right: 0.5rem;
 }
 
 .game-item h3::after{
     content:      var(--bullet);
+    color:        var(--color_link);
     padding-left: 0.5rem;
 }
 
@@ -361,21 +377,16 @@ ul.contact span {
     display:        inline-block;
     text-transform: uppercase;
     font-size:      1rem;
-    color:          var(--color_game_title);
-
-    background-color: yellowgreen;
+    color:          var(--color_game_subtitle);
 }
 
 /*----------------------------------------------------------------------------*/
 ul.contact a {
-    display: block;
-
-    font-size: 1.25rem;
-
-    /* margin-bottom: 1rem;
-    margin-left:   1rem; */
-
-    color: var(--color_game_title);
+    display:       block;
+    font-size:     1.25rem;
+    border-bottom: none;
+    margin-left:   1rem;
+    color:         var(--color_game_title);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -403,15 +414,16 @@ ul.contact a {
     border-style:  solid;
     border-width:  2px;
 
-    border-color: var(--accent_medium);
+    border-color: var(--color_img_border);
 }
 
 /*----------------------------------------------------------------------------*/
 .thumb-container span {
     display: block;
     text-transform: uppercase;
-    color: var(--color_link);
     margin: 0.5rem;
+
+    color: var(--color_bold_text);
 }
 
 .icon-container {
