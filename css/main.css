@@ -50,27 +50,28 @@
 } */
 
 :root {
-    --background:    #20283D;
-    --accent_dark:   #4E6476;
-    --accent_medium: #92B4CA;
-    --accent_bright: #B35EFB;
+    --color_background: black;
+    --color_text: red;
+    --color_bold_text: darkred;
+    --color_link: green;
+    --color_link_border: darkgreen;
 
+    --color_nav_header:blue;
+    --color_nav_links: magenta;
+    --color_nav_separator: cyan;
 
-    --spacing_double: 2.0rem;
-    --spacing_full:   1.0rem;
-    --spacing_half:   0.5rem;
+    --color_subtitle: yellow;
+    --color_subtitle_border: brown;
+
+    --color_img_border: orange;
+
+    --color_game_title: aqua;
+    --color_game_subtitle: magenta;
 
     --font_bold:    "Font_Bold",    monospace;
     --font_regular: "Font_Regular", monospace;
 
-    --font_size_giant:  2.5rem;
-    --font_size_big:    2.0rem;
-    --font_size_medium: 1.5rem;
-    --font_size_normal: 1.0rem;
-    --font_size_small:  0.7rem;
-
-    /* --debug-border-style: solid; */
-    /* --debug-border-width: 1px; */
+    --bullet: "•";
 }
 
 .center {
@@ -84,8 +85,8 @@
 body {
     max-width: 800px;
 
-    padding-left:   1rem;
-    padding-right:  1rem;
+    padding-left:   2rem;
+    padding-right:  2rem;
     padding-top:    1rem;
     padding-bottom: 1rem;
 
@@ -94,19 +95,39 @@ body {
 
     font-family: var(--font_regular);
 
-    background-color: var(--background);
-    color:            var(--accent_medium);
+    background-color: var(--color_background);
+    color:            var(--color_text);
 }
 
+/*----------------------------------------------------------------------------*/
 a {
     text-decoration: none;
 }
 
+/*----------------------------------------------------------------------------*/
+b {
+    color: var(--color_bold_text);
+    font-family: var(--font_bold);
+}
+
+/*----------------------------------------------------------------------------*/
 ul {
     list-style-type: none;
     margin:          0rem;
     padding:         0rem;
+    display:         inline-block;
 }
+
+/*----------------------------------------------------------------------------*/
+li {
+    display: block;
+}
+
+li::before {
+    content: var(--bullet);
+    margin-right: 0.5rem;
+}
+
 
 
 /*----------------------------------------------------------------------------*/
@@ -121,15 +142,11 @@ ul {
 
     text-align:     center;
     text-transform: uppercase;
-
-    /* background-color: yellow; */
 }
 
 /*----------------------------------------------------------------------------*/
 .nav-out div {
     display: inline-block;
-
-    /* background-color: magenta; */
 }
 
 /*----------------------------------------------------------------------------*/
@@ -142,31 +159,55 @@ ul {
     display:      inline-block;
     font-size:    1.5rem;
     max-width:    100%;
-    border-width: 2px;
-    /* background-color: cyan; */
+    color:        var(--color_nav_header);
 }
 
 /*----------------------------------------------------------------------------*/
 .nav-out nav {
-    border-top: 2px dotted;
-
     display:               grid;
     grid-template-columns: auto auto auto;
     justify-content:       center;
     max-width:             fit-content;
 
-    margin-left: auto;
+    margin-left:  auto;
     margin-right: auto;
 
     padding-top: 0.2rem;
-    /* background-color: red; */
+
+    border-top-style: dotted;
+    border-top-width: medium;
+    border-top-color: var(--color_nav_separator);
+
+    color: var(--color_nav_links);
 }
 
 /*----------------------------------------------------------------------------*/
-.nav-out nav a {
-    padding-left:  0.5rem;
+.nav-out nav :nth-child(3n - 2)::before {
+    content: var(--bullet);
+    margin-right: 0.5rem;
+}
+
+.nav-out nav :nth-child(3n - 2) {
     padding-right: 0.5rem;
-    /* background-color: blue; */
+}
+
+.nav-out nav :nth-child(3n - 1)::before {
+    content: var(--bullet);
+    margin-right: 0.5rem;;
+}
+
+.nav-out nav :nth-child(3n - 1)::after {
+    content: var(--bullet);
+    margin-left: 0.5rem;
+}
+
+.nav-out nav :nth-child(3n - 0) {
+    padding-left: 0.5rem;
+}
+
+.nav-out nav :nth-child(3n - 0)::after {
+    content: var(--bullet);
+    margin-left: 0.5rem;
 }
 
 
@@ -175,28 +216,24 @@ ul {
 /*----------------------------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 main {
-    padding-top: 1rem;
-    border-bottom: 2px dotted;
-    border-width:  medium;
+    padding-top:    1rem;
+    padding-bottom: 1rem;
+
+    border-bottom-style: dotted;
+    border-bottom-width: medium;
+    border-bottom-color: var(--color_nav_separator);
 }
 
 /*----------------------------------------------------------------------------*/
 main a {
-    color:       var(--accent_medium);
+    color:       var(--color_link);
     font-family: var(--font_bold);
-    border-bottom: 1px dashed var(--accent_dark);
+
+    border-bottom: thin dotted var(--color_link_border);
 }
 
 /*----------------------------------------------------------------------------*/
-main h1 {
-    text-transform: uppercase;
-    font-family: var(--font_bold);
-
-    /* background-color: yellow; */
-}
-
-/*----------------------------------------------------------------------------*/
-main h2 {
+main h1, h2 {
     display: block;
 
     font-family: var(--font_bold);
@@ -204,20 +241,22 @@ main h2 {
 
     text-transform: uppercase;
 
-    border-bottom: 2px dotted var(--accent_dark);
-    border-width:  medium;
+    color: var(--color_subtitle);
+
+    border-bottom: medium dotted var(--color_subtitle_border);
 
     margin-bottom: 0.5rem;
-
-    /* background-color: blue; */
 }
 
 /*----------------------------------------------------------------------------*/
 main p {
     display:    block;
     margin-top: 0.5rem;
+}
 
-    /* background-color: yellowgreen; */
+/*----------------------------------------------------------------------------*/
+main img {
+    border: medium solid var(--color_img_border);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -230,7 +269,7 @@ img.about {
     width:     100%;
     max-width: 200px;
 
-    margin-left: auto;
+    margin-left:  auto;
     margin-right: auto;
 }
 
@@ -256,84 +295,159 @@ img.about {
     text-align:     center;
     text-transform: uppercase;
 
-    /* padding-top: 0.5rem;
-    padding-top: 0.5rem;
-    padding-left:  1rem;
-    padding-right: 1rem; */
     padding: 1rem;
 }
+
+/*----------------------------------------------------------------------------*/
 .game-item a {
     border-bottom: none;
 }
 
+/*----------------------------------------------------------------------------*/
 .game-item img {
     height: 200px;
     width:  200px;
 }
 
+/*----------------------------------------------------------------------------*/
 .game-item h3 {
     display: block;
 
-    font-size: 1rem;
+    font-size:   1rem;
+    font-family: var(--font_bold);
 
     margin-top:    0.5rem;
     margin-bottom: 0px;
 
+    color: var(--color_game_title);
     /* background-color: yellow; */
 }
 
 .game-item h3::before {
-    content: "•";
+    content:       var(--bullet);
     padding-right: 0.5rem;
-    color: var(--accent_dark);
 }
 
 .game-item h3::after{
-    content: "•";
+    content:      var(--bullet);
     padding-left: 0.5rem;
-    color: var(--accent_dark);
 }
 
+/*----------------------------------------------------------------------------*/
 .game-item h4 {
     display: block;
 
     font-size: 0.75rem;
+    font-family: var(--font_regular);
 
     margin-top:    0px;
     margin-bottom: 0.5px;
 
-    color: var(--accent_dark);
-    /* background-color: blue; */
-}
-ul {
-    display: inline-block;
-    /* background-color: red; */
+    color: var(--color_game_subtitle);
 }
 
-li {
+
+/*----------------------------------------------------------------------------*/
+/* Contact                                                                    */
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+ul.contact li {
     display: block;
-    /* margin: 1rem 0rem; */
-    /* text-align: center; */
-
-    /* background-color: tomato; */
-}
-
-.contact-item-title {
-    display: inline-block;
-    text-transform: uppercase;
-    font-size: 1rem;
-    /* background-color: magenta; */
-}
-
-.contact-item-title::before {
-    content: "• ";
-}
-
-.contact-item-subtitle {
-    display: block;
-    font-size: 1.25rem;
     margin-bottom: 1rem;
+}
 
-    margin-left: 1rem;
-    /* background-color: blue; */
+/*----------------------------------------------------------------------------*/
+ul.contact span {
+    display:        inline-block;
+    text-transform: uppercase;
+    font-size:      1rem;
+    color:          var(--color_game_title);
+
+    background-color: yellowgreen;
+}
+
+/*----------------------------------------------------------------------------*/
+ul.contact a {
+    display: block;
+
+    font-size: 1.25rem;
+
+    /* margin-bottom: 1rem;
+    margin-left:   1rem; */
+
+    color: var(--color_game_title);
+}
+
+/*----------------------------------------------------------------------------*/
+/* Projects Page                                                              */
+/*----------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+.thumb-container {
+    display:    block;
+    text-align: center;
+}
+
+/*----------------------------------------------------------------------------*/
+.thumb-container img {
+    display: block;
+
+    width:     100%;
+    max-width: fit-content;
+
+    margin-left:  auto;
+    margin-right: auto;
+
+    object-fit:    fill;
+
+    border-radius: 5px;
+    border-style:  solid;
+    border-width:  2px;
+
+    border-color: var(--accent_medium);
+}
+
+/*----------------------------------------------------------------------------*/
+.thumb-container span {
+    display: block;
+    text-transform: uppercase;
+    color: var(--color_link);
+    margin: 0.5rem;
+}
+
+.icon-container {
+    display:         flex;
+    justify-content: center;
+    text-transform:  uppercase;
+}
+
+.icon-container div {
+    display: inline-block;
+
+    text-align: center;
+
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+/*----------------------------------------------------------------------------*/
+.icon-container div img {
+    max-width:  3ch;
+    max-height: 3ch;
+}
+
+/*----------------------------------------------------------------------------*/
+.icon-container div a {
+    display: block;
+    padding: 0px;
+    margin:  0px;
+}
+
+.icon-container div a::before {
+    content: var(--bullet);
+    margin-right: 0.5rem;
+}
+
+.icon-container div a::after {
+    content: var(--bullet);
+    margin-left: 0.5rem;
 }
