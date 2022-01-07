@@ -50,33 +50,25 @@
 } */
 
 :root {
-    --color_background:  #FDF6E3;
+    --color_background:  #EEE8D5;
     --color_text:        #657B83;
     --color_bold_text:   #586E75;
-    --color_link:        #CB4B16;
-    /* --color_link:        var(--color_bold_text); */
-    /* --color_link_border: #CB4B16; */
+
+    --color_link:        var(--color_bold_text);
     --color_link_border: var(--color_bold_text);
 
-    --color_nav_header:    var(--color_link);
-    --color_nav_links:     var(--color_bold_link);
-    --color_nav_separator: #6c70c485;
+    --color_nav_header:    var(--color_bold_text);
+    --color_nav_links:     var(--color_bold_text);
+    --color_nav_separator: #93A1A1;
 
-    --color_subtitle:        #6C71C4;
-    --color_subtitle_border: #6c70c485;
+    --color_subtitle:        var(--color_text);
+    --color_subtitle_border: var(--color_nav_separator);
 
-    --color_img_border: #93A1A1;
+    --color_img_border: var(--color_nav_separator);
 
-    --color_game_title:    var(--color_bold_text);
-    --color_game_subtitle: #6C71C4;
-        /* #0d2b45 */
-        /* #203c56 */
-        /* #544e68 */
-        /* #8d697a */
-        /* #d08159 */
-        /* #ffaa5e */
-        /* #ffd4a3 */
-        /* #ffecd6 */
+    --color_game_title:    var(--color_text);
+    --color_game_subtitle: var(--color_text);
+
 
     --font_bold:    "Font_Bold",    monospace;
     --font_regular: "Font_Regular", monospace;
@@ -126,11 +118,13 @@ ul {
     margin:          0rem;
     padding:         0rem;
     display:         inline-block;
+    font-size: 1rem;
 }
 
 /*----------------------------------------------------------------------------*/
 li {
     display: block;
+    font-size: 1rem;
 }
 
 li::before {
