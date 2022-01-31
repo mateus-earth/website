@@ -54,7 +54,6 @@
     --color_game_title:    var(--color_text);
     --color_game_subtitle: var(--color_text);
 
-
     --font_bold:    "Font_Bold",    monospace;
     --font_regular: "Font_Regular", monospace;
 
@@ -93,28 +92,28 @@ a {
 
 /************************************************************************-----*/
 b {
-    color: var(--color_bold_text);
+    color:       var(--color_bold_text);
     font-family: var(--font_bold);
 }
 
 /************************************************************************-----*/
 ul {
-    display: block;
-    margin:          0rem;
-    padding:         0rem;
-    display:         block;
-    font-size:       1rem;
+    display:   block;
+    margin:    0rem;
+    padding:   0rem;
+    display:   block;
+    font-size: 1rem;
     /* background-color: violet; */
 }
 
 /************************************************************************-----*/
 li {
-    display: block;
+    display:   block;
     font-size: 1rem;
 }
 
 li::before {
-    content: var(--bullet);
+    content:      var(--bullet);
     margin-right: 0.5rem;
 }
 
@@ -124,8 +123,8 @@ li::before {
 /************************************************************************-----*/
 /************************************************************************-----*/
 .nav-out {
-    display:       block;
-    width:         100%;
+    display: block;
+    width:   100%;
 
     font-family: var(--font_bold);
 
@@ -145,10 +144,10 @@ li::before {
 
 /************************************************************************-----*/
 .nav-out header {
-    display:      inline-block;
-    font-size:    1.5rem;
-    max-width:    100%;
-    color:        var(--color_nav_header);
+    display:   inline-block;
+    font-size: 1.5rem;
+    max-width: 100%;
+    color:     var(--color_nav_header);
 }
 
 /************************************************************************-----*/
