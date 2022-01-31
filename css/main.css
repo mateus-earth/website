@@ -130,11 +130,8 @@ li::before {
 
     text-align:     center;
     text-transform: uppercase;
-}
 
-/************************************************************************-----*/
-.nav-out div {
-    display: inline-block;
+    /* background-color: blue; */
 }
 
 /************************************************************************-----*/
@@ -144,18 +141,17 @@ li::before {
 
 /************************************************************************-----*/
 .nav-out header {
-    display:   inline-block;
+    display:   block;
     font-size: 1.5rem;
     max-width: 100%;
     color:     var(--color_nav_header);
+
+    /* background-color: red; */
 }
 
 /************************************************************************-----*/
 .nav-out nav {
-    display:               grid;
-    grid-template-columns: auto auto auto;
-    justify-content:       center;
-    max-width:             fit-content;
+    display: inline-block;
 
     margin-left:  auto;
     margin-right: auto;
@@ -167,41 +163,9 @@ li::before {
     border-top-color: var(--color_nav_separator);
 
     color: var(--color_nav_links);
-}
 
-/************************************************************************-----*/
-.nav-out nav :nth-child(3n - 2)::before {
-    content:      var(--bullet);
-    color:        var(--color_link);
-    margin-right: 0.5rem;
+    /* background-color: chocolate; */
 }
-
-.nav-out nav :nth-child(3n - 2) {
-    padding-right: 0.5rem;
-}
-
-.nav-out nav :nth-child(3n - 1)::before {
-    content:      var(--bullet);
-    color:        var(--color_link);
-    margin-right: 0.5rem;;
-}
-
-.nav-out nav :nth-child(3n - 1)::after {
-    content:      var(--bullet);
-    color:        var(--color_link);
-    margin-left: 0.5rem;
-}
-
-.nav-out nav :nth-child(3n - 0) {
-    padding-left: 0.5rem;
-}
-
-.nav-out nav :nth-child(3n - 0)::after {
-    content:      var(--bullet);
-    color:        var(--color_link);
-    margin-left: 0.5rem;
-}
-
 
 /************************************************************************-----*/
 /* Content                                                                    */
