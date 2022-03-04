@@ -1,23 +1,6 @@
-
-//------------------------------------------------------------------------------
-files_to_load = [
-    // demolib - modules
-    "/modules/demolib/modules/external/chroma.js",
-    "/modules/demolib/modules/external/perlin.js",
-    "/modules/demolib/modules/external/tween.umd.js",
-    // demolib - main
-    "/modules/demolib/source/demolib.js",
-
-    // demo -main
-    "/source/Version.js",
-    "/source/Starfield.js",
-];
-
 //------------------------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", ()=> {
-    demolib_load_all_scripts(files_to_load).then(()=> {
-        _on_ready();
-    });
+    _on_ready();
 });
 
 //------------------------------------------------------------------------------
@@ -43,6 +26,12 @@ function _on_ready()
     ctx.fillStyle = grd;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    demo_start(canvas);
+    const demo_path_prefix   = "/modules/demos/starfield/";
+    const demo_main_filename = "source/starfield.js";
 
+    demolib_load_script(demo_main_filename, demo_path_prefix).then(()=>{
+        demolib_load_all_scripts(__SOURCES, demo_path_prefix).then(()=> {
+            demo_start(canvas);
+        });
+    });
 }
