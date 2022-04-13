@@ -1,0 +1,287 @@
+/*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+html,
+body,
+p,
+ol,
+ul,
+li,
+dl,
+dt,
+dd,
+blockquote,
+figure,
+fieldset,
+legend,
+textarea,
+pre,
+iframe,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+ul {
+    list-style: none;
+}
+button,
+input,
+select,
+textarea {
+    margin: 0;
+}
+html {
+    box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+img,
+video {
+    height: auto;
+    max-width: 100%;
+}
+iframe {
+    border: 0;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+td,
+th {
+    padding: 0;
+}
+td:not([align]),
+th:not([align]) {
+    text-align: left;
+}
+
+
+/*----------------------------------------------------------------------------*/
+/* Font Faces                                                                 */
+/*----------------------------------------------------------------------------*/
+/* -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Font_Regular";
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* -------------------------------------------------------------------------- */
+@font-face {
+  font-family: "Font_Bold";
+  src: url("/fonts/JetBrainsMono-ExtraBold.woff2") format("woff2");
+  font-weight: bold;
+  font-style:normal;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Default Selectors                                                          */
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+a {
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+    text-decoration: none;
+    border:          none;
+    color:          black;
+}
+
+a:link {
+    color: #006fff;
+}
+
+a:visited {
+    color: #00214d;
+}
+
+a:hover {
+    background: #006fff;
+    color:      white;
+}
+
+a:active {
+    background: #004399;
+    color:      white;
+}
+
+/* -------------------------------------------------------------------------- */
+body {
+    font-family: "Font_Regular", monospace;
+
+    background: black;
+    color:      black;
+
+    margin-top:    1rem;
+    margin-bottom: 1rem;
+    margin-left:   auto;
+    margin-right:  auto;
+
+    padding-left:  1rem;
+    padding-right: 1rem;
+
+    min-height: 100vh;
+    max-width:  960px;
+}
+
+/* -------------------------------------------------------------------------- */
+header h1 {
+    font-family: "Font_Bold", monospace;
+    font-weight:  bold;
+    font-size:    1.5rem;
+
+    margin-bottom: 0.5rem;
+}
+
+/* Bullet points between the Menu Items                                       */
+/* Thanks to: Tom Robinson - https://stackoverflow.com/a/40162380             */
+header ul {
+    display:inline-block;
+    padding:0;
+    text-align:center
+}
+
+header li {
+    display:inline
+}
+header li a {
+    white-space:nowrap
+}
+header li:after {
+    content:" ";
+    letter-spacing:1em;
+    background:center center no-repeat url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwAAADsABataJCQAAABl0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMC4xMkMEa+wAAAAnSURBVBhXY/Dz89MA4sNA/B9Ka4AEYQIwfBgkiCwAxjhVopnppwEApxQqhnyQ+VkAAAAASUVORK5CYII=);
+}
+
+@media screen and (max-width: 800px) {
+    header nav {
+        margin-left:  auto;
+        margin-right: auto;
+        max-width:    250px;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+h2 {
+    font-family: "Font_Bold", monospace;
+    font-weight: bold;
+
+    margin-top:    1.5rem;
+    margin-bottom: 1rem;
+
+    text-transform: uppercase;
+}
+h2:before {
+    content: "• ";
+}
+
+/* -------------------------------------------------------------------------- */
+p {
+    margin-bottom: 1.0rem;
+}
+
+/* -------------------------------------------------------------------------- */
+b {
+    font-family: "Font_Bold", monospace;
+    font-weight: bold;
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* Custom Selectors                                                           */
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+.block {
+    background: rgba(255, 255, 255, 0.8);
+
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+
+    padding:       1rem;
+    margin-bottom: 1rem;
+}
+
+.block_title {
+    color:      white;
+    background: black;
+
+    margin-top:    calc(-1rem + 1px);
+    margin-left:   calc(-1rem + 1px);
+    margin-right:  calc(-1rem + 1px);
+    margin-bottom: +1rem;
+
+    padding-top:    0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left:   1rem;
+    padding-right:  1rem;
+
+    text-transform: uppercase;
+    font-weight:    bold;
+}
+
+/* -------------------------------------------------------------------------- */
+.center {
+    margin-left:  auto;
+    margin-right: auto;
+    text-align:   center;
+    display:      block;
+}
+
+/* -------------------------------------------------------------------------- */
+.flex {
+    display:         flex;
+    flex-wrap:       wrap;
+    justify-content: center;
+    flex-direction:  row;
+    align-items:     center;
+}
+
+/* -------------------------------------------------------------------------- */
+.small_image {
+    border:    2px solid black;
+    max-width: max(150px, 25%);
+}
+
+/* -------------------------------------------------------------------------- */
+.image_with_title {
+    display:        block;
+    text-transform: uppercase;
+    margin:         0.5rem;
+    white-space:    nowrap;
+    /* background-color: #1c75ff; */
+}
+
+.image_with_title img {
+    display:   block;
+    max-height: 150px;
+    border:    2px solid black;
+
+    margin-bottom: 0.5rem;
+    margin-left:   auto;
+    margin-right:  auto;
+
+}

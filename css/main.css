@@ -19,21 +19,8 @@
 /* Fonts                                                                      */
 /************************************************************************-----*/
 /************************************************************************-----*/
-@font-face {
-  font-family: "Font_Regular";
-  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
 
 /************************************************************************-----*/
-@font-face {
-  font-family: "Font_Bold";
-  src: url("/fonts/JetBrainsMono-ExtraBold.woff2") format("woff2");
-  font-weight: bold;
-  font-style:normal;
-}
-
 :root {
     --color_background:  #EEE8D5;
     --color_text:        #54676e;
@@ -57,7 +44,7 @@
     --font_bold:    "Font_Bold",    monospace;
     --font_regular: "Font_Regular", monospace;
 
-    --bullet: "•";
+    --bullet: "";
 }
 
 .center {
