@@ -1,0 +1,3 @@
+[submodule "modules/demolib_loader"]
+	path = modules/demolib_loader
+	url = https://gitlab.com/stdmatt-libs/js/demolib_loader.git
